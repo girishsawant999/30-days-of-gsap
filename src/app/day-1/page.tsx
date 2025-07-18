@@ -1,11 +1,12 @@
 "use client";
-import BackButton from "@/components/BackButton";
+import CodeBlock from "@/components/CodeBlock";
 import InformationBlockWrapper from "@/components/InformationBlockWrapper";
-import ReloadButton from "@/components/ReloadButton";
+import PageWrapper from "@/components/PageWrapper";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import SplitText from "gsap/SplitText";
 import { useRef, useState } from "react";
+import { code } from "./constant";
 
 gsap.registerPlugin(SplitText);
 
@@ -48,17 +49,12 @@ const SplitTextTutorial = () => {
   );
 
   return (
-    <section className="grid md:grid-cols-2 gap-10 relative w-full place-items-center h-dvh p-5 md:p-10  overflow-x-hidden">
-      <div className="flex items-center gap-3 absolute top-10 left-10">
-        <BackButton />
-        <ReloadButton
-          onReload={() => {
-            context.revert();
-            setFlag((prev) => !prev);
-          }}
-        />
-      </div>
-
+    <PageWrapper
+      onReload={() => {
+        context.revert();
+        setFlag(!flag);
+      }}
+    >
       <div className="max-w-3xl" ref={container}>
         <h1
           className="text-7xl md:text-8xl font-bold text-center mb-5 overflow-hidden"
@@ -99,25 +95,7 @@ const SplitTextTutorial = () => {
           (characters), then animate each character to slide in from the bottom
           with a fading effect.
         </p>
-        <pre className="bg-background text-foreground p-4 rounded text-sm overflow-auto mb-6">
-          <code>
-            {`// 1. Register the plugin
-gsap.registerPlugin(SplitText);
-
-// 2. Split the heading text into words and characters
-const headingSplit = SplitText.create("h1", {
-  type: "words, chars",
-});
-
-// 3. Animate each character individually
-gsap.from(headingSplit.chars, {
-  y: 50,
-  opacity: 0,
-  stagger: 0.05,
-  ease: "back.out(1.7)"
-});`}
-          </code>
-        </pre>
+        <CodeBlock code={code} />
         <p className="mb-6">
           <strong>Important Note:</strong> Always ensure the element you're
           splitting (like <code>h1</code> or <code>p</code>) is already visible
@@ -130,7 +108,7 @@ gsap.from(headingSplit.chars, {
           in production, but you can try it locally for learning and demos.
         </p>
       </InformationBlockWrapper>
-    </section>
+    </PageWrapper>
   );
 };
 

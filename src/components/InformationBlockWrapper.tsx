@@ -20,7 +20,7 @@ const InformationBlockWrapper = ({
   return (
     <div
       ref={block}
-      className="p-4 information-section min-h-max  bg-zinc-200 dark:bg-zinc-800 rounded-lg place-self-stretch overflow-y-auto no-scrollbar"
+      className="p-4 information-section bg-zinc-200 dark:bg-zinc-800 rounded-lg place-self-stretch overflow-y-auto no-scrollbar"
     >
       {children}
     </div>
