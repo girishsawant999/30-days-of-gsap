@@ -3,9 +3,7 @@
 :root {
   --background: #f6f6f6;
   --foreground: #171717;
-}
 
-* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
