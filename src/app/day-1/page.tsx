@@ -1,5 +1,6 @@
 "use client";
 import BackButton from "@/components/BackButton";
+import InformationBlockWrapper from "@/components/InformationBlockWrapper";
 import ReloadButton from "@/components/ReloadButton";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -16,6 +17,7 @@ const SplitTextTutorial = () => {
     () => {
       const headingSplit = SplitText.create("h1", {
         type: "words, chars",
+        smartWrap: true,
       });
       const paragraphSplit = SplitText.create("p", {
         type: "chars",
@@ -46,7 +48,7 @@ const SplitTextTutorial = () => {
   );
 
   return (
-    <section className="grid md:grid-cols-2 gap-10 relative w-full place-items-center h-dvh p-10">
+    <section className="grid md:grid-cols-2 gap-10 relative w-full place-items-center h-dvh p-5 md:p-10  overflow-x-hidden">
       <div className="flex items-center gap-3 absolute top-10 left-10">
         <BackButton />
         <ReloadButton
@@ -59,7 +61,7 @@ const SplitTextTutorial = () => {
 
       <div className="max-w-3xl" ref={container}>
         <h1
-          className="text-8xl font-bold text-center mb-5 overflow-hidden"
+          className="text-7xl md:text-8xl font-bold text-center mb-5 overflow-hidden"
           aria-label="Animate Your Text Like a Pro"
         >
           Animate Your Text Like a Pro
@@ -72,7 +74,7 @@ const SplitTextTutorial = () => {
         </p>
       </div>
 
-      <div className="p-4 bg-zinc-200 dark:bg-zinc-800 rounded-lg place-self-stretch overflow-y-auto no-scrollbar">
+      <InformationBlockWrapper>
         <h1 className="text-2xl font-semibold mb-6">
           GSAP SplitText Plugin Overview
         </h1>
@@ -127,7 +129,7 @@ gsap.from(headingSplit.chars, {
           offered through GreenSock’s Club. You’ll need a membership to use it
           in production, but you can try it locally for learning and demos.
         </p>
-      </div>
+      </InformationBlockWrapper>
     </section>
   );
 };
