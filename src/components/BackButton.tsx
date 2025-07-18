@@ -1,3 +1,4 @@
+"use client";
 import gsap from "gsap";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
