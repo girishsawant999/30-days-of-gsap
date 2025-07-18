@@ -150,7 +150,7 @@ const ScrollTriggerTutorial = () => {
           </h1>
         </div>
 
-        <div className="contacts min-h-screen w-full bg-background/70 backdrop-blur-sm text-foreground absolute top-0 left-0 z-10 grid place-items-center px-5 md:px-10">
+        <div className="contacts min-h-dvh w-full bg-background/70 backdrop-blur-sm text-foreground absolute top-0 left-0 z-10 grid place-items-center px-5 md:px-10">
           <div className="max-w-3xl w-full space-y-6">
             <h3 className="font-sans text-4xl md:text-7xl font-bold mb-6">
               Contacts
