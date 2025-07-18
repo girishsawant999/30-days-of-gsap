@@ -88,7 +88,6 @@ const ScrollTriggerTutorial = () => {
           });
 
           gsap.from(".contacts p", {
-            yPercent: gsap.utils.mapRange(0.72, 0.8, 100, 0, progress),
             opacity: gsap.utils.mapRange(0.72, 0.8, 0, 1, progress),
             stagger: 0.2,
           });
