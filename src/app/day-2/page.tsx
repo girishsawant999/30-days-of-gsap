@@ -13,14 +13,6 @@ const ScrollTriggerTutorial = () => {
   const container = useRef<HTMLDivElement>(null);
   useGSAP(
     () => {
-      const scrollToExploreAnimation = gsap.to(".scroll-to-explore", {
-        y: 20,
-        yoyo: true,
-        ease: "expo.in",
-        repeat: -1,
-        duration: 0.5,
-      });
-
       ScrollTrigger.create({
         trigger: container.current,
         start: "top top",
@@ -30,15 +22,28 @@ const ScrollTriggerTutorial = () => {
         pinSpacing: true,
         onUpdate: ({ progress, ...self }) => {
           if (!container.current) return;
+          const scrollToExplore =
+            container.current.querySelector(".scroll-to-explore");
+
+          if (progress < 0.05) {
+            gsap.set(scrollToExplore, {
+              display: "flex",
+            });
+            gsap.to(".scroll-to-explore", {
+              opacity: 1,
+              y: 20,
+              yoyo: true,
+              ease: "expo.in",
+              repeat: -1,
+              duration: 0.5,
+            });
+          } else {
+            gsap.set(scrollToExplore, {
+              display: "none",
+            });
+          }
 
           if (progress <= 0.25) {
-            if (progress > 0.02) {
-              gsap.to(".scroll-to-explore", {
-                opacity: 0,
-                display: "none",
-              });
-              scrollToExploreAnimation.revert();
-            }
             const headings = document.querySelectorAll(
               ".intro-section h1 span"
             );
@@ -55,13 +60,6 @@ const ScrollTriggerTutorial = () => {
               scale: gsap.utils.normalize(0, 0.245, progress),
               y: gsap.utils.mapRange(0, 0.25, 150, 0, progress),
               ease: "power2.out",
-              filter: `grayscale(${gsap.utils.mapRange(
-                0,
-                0.25,
-                1,
-                0,
-                progress
-              )})`,
             });
           }
           if (progress > 0.25 && progress <= 0.6) {
@@ -89,7 +87,10 @@ const ScrollTriggerTutorial = () => {
 
           gsap.from(".contacts p", {
             opacity: gsap.utils.mapRange(0.72, 0.8, 0, 1, progress),
-            stagger: 0.2,
+            stagger: {
+              amount: 0.2,
+              from: self.direction === -1 ? "end" : "start",
+            },
           });
 
           gsap.to(".bg-image img", {
