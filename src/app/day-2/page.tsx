@@ -15,8 +15,8 @@ const ScrollTriggerTutorial = () => {
     () => {
       ScrollTrigger.create({
         trigger: container.current,
-        start: "top top",
-        end: `+=${window.innerHeight * 5}px`,
+        start: "clamp(top top)",
+        end: `clamp(+=${window.innerHeight * 5}px)`,
         scrub: true,
         pin: true,
         pinSpacing: true,
@@ -81,12 +81,12 @@ const ScrollTriggerTutorial = () => {
             });
           }
 
-          gsap.from(".contacts", {
-            yPercent: gsap.utils.mapRange(0.6, 0.8, 100, 0, progress),
+          gsap.to(".contacts", {
+            yPercent: gsap.utils.mapRange(0.6, 1, 0, -100, progress),
           });
 
           gsap.from(".contacts p", {
-            opacity: gsap.utils.mapRange(0.72, 0.8, 0, 1, progress),
+            opacity: gsap.utils.mapRange(0.85, 0.95, 0, 1, progress),
             stagger: {
               amount: 0.2,
               from: self.direction === -1 ? "end" : "start",
@@ -151,7 +151,7 @@ const ScrollTriggerTutorial = () => {
           </h1>
         </div>
 
-        <div className="contacts min-h-dvh w-full bg-background/70 backdrop-blur-sm text-foreground absolute top-0 left-0 z-10 grid place-items-center px-5 md:px-10">
+        <div className="contacts min-h-dvh w-full bg-background/70 backdrop-blur-sm text-foreground absolute top-full left-0 z-10 grid place-items-center px-5 md:px-10">
           <div className="max-w-3xl w-full space-y-6">
             <h3 className="font-sans text-4xl md:text-7xl font-bold mb-6">
               Contacts
