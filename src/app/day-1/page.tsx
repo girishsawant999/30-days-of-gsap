@@ -55,7 +55,7 @@ const SplitTextTutorial = () => {
         setFlag(!flag);
       }}
     >
-      <div className="max-w-3xl" ref={container}>
+      <div className="max-w-3xl m-auto" ref={container}>
         <h1
           className="text-7xl md:text-8xl font-bold text-center mb-5 overflow-hidden"
           aria-label="Animate Your Text Like a Pro"

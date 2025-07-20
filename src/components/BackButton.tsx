@@ -15,7 +15,7 @@ const BackButton = () => {
       duration: 0.2,
       ease: "power2.in",
       onComplete() {
-        router.back();
+        router.push("/");
       },
     }).to(iconRef.current, {
       x: 0,
