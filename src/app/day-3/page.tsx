@@ -100,6 +100,8 @@ const SmoothScrollTutorial = () => {
               className="w-full h-full object-cover object-top"
               src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453"
               alt="Image 1"
+              height="100%"
+              width="25%"
             />
           </div>
           <div className="flex-1 img-container" data-speed="clamp(2.5)">
@@ -107,6 +109,8 @@ const SmoothScrollTutorial = () => {
               className="w-full h-full object-cover object-top"
               src="https://images.unsplash.com/photo-1630255732364-a69ade0f0543"
               alt="Image 2"
+              height="100%"
+              width="25%"
             />
           </div>
           <div className="flex-1 img-container" data-speed="clamp(1.5)">
@@ -114,6 +118,8 @@ const SmoothScrollTutorial = () => {
               className="w-full h-full object-cover object-top"
               src="https://images.unsplash.com/photo-1607699032287-f58742a2693d"
               alt=""
+              height="100%"
+              width="25%"
             />
           </div>
           <div className="flex-1 img-container" data-speed="clamp(2.7)">
@@ -121,6 +127,8 @@ const SmoothScrollTutorial = () => {
               className="w-full h-full object-cover object-top"
               src="https://images.unsplash.com/photo-1534528741775-53994a69daeb"
               alt=""
+              height="100%"
+              width="25%"
             />
           </div>
         </div>
