@@ -75,15 +75,12 @@ const SmoothScrollTutorial = () => {
   );
 
   return (
-    <section
-      ref={smoothWrapper}
-      className="bg-background text-foreground relative min-h-dvh"
-    >
-      <div className="absolute top-5 md:top-10 left-5 md:left-10 z-20">
+    <div ref={smoothWrapper} className="place-self-stretch relative">
+      <div className="fixed top-5 md:top-10 left-5 md:left-10 z-20">
         <BackButton />
       </div>
 
-      <div id="smooth-content">
+      <div id="smooth-content" className="bg-background text-foreground">
         <div className="min-h-dvh grid place-items-center relative primary-section">
           <h1 className="text-4xl text-center md:text-8xl font-sans font-semibold leading-none">
             Explore SmoothScroller
@@ -129,7 +126,7 @@ const SmoothScrollTutorial = () => {
         </div>
         <div className="min-h-dvh"></div>
       </div>
-    </section>
+    </div>
   );
 };
 
