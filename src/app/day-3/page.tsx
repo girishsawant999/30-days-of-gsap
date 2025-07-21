@@ -26,6 +26,7 @@ const SmoothScrollTutorial = () => {
         wrapper: smoothWrapper.current,
         content: "#smooth-content",
         smooth: 1.5,
+        smoothTouch: 0.1,
         effects: true,
       });
       const sctr = ScrollTrigger.create({
@@ -76,7 +77,7 @@ const SmoothScrollTutorial = () => {
   return (
     <section
       ref={smoothWrapper}
-      className="bg-background text-foreground relative"
+      className="bg-background text-foreground relative min-h-dvh"
     >
       <div className="absolute top-5 md:top-10 left-5 md:left-10 z-20">
         <BackButton />
