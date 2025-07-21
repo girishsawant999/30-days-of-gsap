@@ -38,6 +38,7 @@ const FlipTutorial = () => {
   );
 
   useEffect(() => {
+    if (lives === 0) return setBugIndexes([]);
     let intervalId: NodeJS.Timeout;
 
     function startInterval() {
@@ -47,12 +48,13 @@ const FlipTutorial = () => {
         );
       }, bugSpeed);
     }
+
     startInterval();
 
     return () => {
       clearInterval(intervalId);
     };
-  }, [bugSpeed]);
+  }, [bugSpeed, lives]);
 
   const switchPosition = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.currentTarget;
@@ -161,9 +163,9 @@ const FlipTutorial = () => {
           <div className="text-sm font-semibold">Score: {score}</div>
           <button
             onClick={handleReset}
-            className="flex items-center gap-1 px-2 py-1 text-sm border rounded bg-background hover:bg-background/50 border-foreground"
+            className="cursor-pointer flex items-center gap-1 px-2 py-1 text-sm border rounded bg-background hover:bg-background/50 border-foreground"
           >
-            {bugIndexes.length === 0 ? (
+            {lives === 0 ? (
               <>
                 <Triangle className="rotate-90" size={14} />
                 Start
@@ -181,7 +183,7 @@ const FlipTutorial = () => {
           {Array.from({ length: 64 }).map((_, i) => (
             <div
               onClick={switchPosition}
-              className="targets relative grid place-items-center bg-foreground/10 border border-solid border-foreground/40 aspect-square"
+              className="targets cursor-grab  relative grid place-items-center bg-foreground/10 border border-solid border-foreground/40 aspect-square"
               key={i}
             >
               {i === 28 && (
