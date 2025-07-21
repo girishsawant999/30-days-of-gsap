@@ -83,6 +83,9 @@ const ScrollTriggerTutorial = () => {
           gsap.to(".contacts", {
             yPercent: gsap.utils.mapRange(0.6, 1, 0, -100, progress),
           });
+          gsap.from(".contacts h3", {
+            opacity: gsap.utils.mapRange(0.8, 0.9, 0, 1, progress),
+          });
 
           gsap.from(".contacts p", {
             opacity: gsap.utils.mapRange(0.85, 0.95, 0, 1, progress),
@@ -111,7 +114,7 @@ const ScrollTriggerTutorial = () => {
   return (
     <div
       ref={container}
-      className="place-self-stretch min-h-full relative grid place-items-center overflow-hidden"
+      className="place-self-stretch min-h-dvh relative grid place-items-center overflow-hidden"
     >
       <div className="absolute top-5 md:top-10 left-5 md:left-10 z-20">
         <BackButton />
@@ -149,7 +152,7 @@ const ScrollTriggerTutorial = () => {
         </h1>
       </div>
 
-      <div className="contacts min-h-dvh w-full bg-background/70 backdrop-blur-sm text-foreground absolute top-full left-0 z-10 grid place-items-center px-5 md:px-10">
+      <div className="contacts min-h-dvh w-full bg-background/70 backdrop-blur-[3px] text-foreground absolute top-full left-0 z-10 grid place-items-center px-5 md:px-10">
         <div className="max-w-3xl w-full space-y-6">
           <h3 className="font-sans text-4xl md:text-7xl font-bold mb-6">
             Contacts
