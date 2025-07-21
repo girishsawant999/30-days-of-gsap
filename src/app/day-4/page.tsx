@@ -4,10 +4,13 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Flip from "gsap/Flip";
 import { ChevronsDown } from "lucide-react";
+import { useRef } from "react";
 
 gsap.registerPlugin(Flip);
 
 const FlipTutorial = () => {
+  const container = useRef(null);
+
   useGSAP(
     () => {
       gsap.to("#scroll-down", {
@@ -19,7 +22,7 @@ const FlipTutorial = () => {
       });
     },
     {
-      scope: "#container",
+      scope: container,
     }
   );
 
@@ -56,7 +59,7 @@ const FlipTutorial = () => {
 
   return (
     <section
-      id="container"
+      ref={container}
       className="bg-background text-foreground min-h-dvh p-5 md:p-10 flex flex-col place-items-center scroll-smooth snap-y snap-mandatory"
     >
       <div className="fixed top-5 md:top-10 left-5 md:left-10 z-20">

@@ -6,6 +6,7 @@ import gsap from "gsap";
 import ScrollSmoother from "gsap/ScrollSmoother";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { ChevronsDown } from "lucide-react";
+import Image from "next/image";
 import { useRef } from "react";
 
 gsap.registerPlugin(ScrollSmoother);
@@ -96,39 +97,43 @@ const SmoothScrollTutorial = () => {
         </div>
         <div className="flex min-h-dvh items-stretch justify-center my-10">
           <div className="flex-1 img-container" data-speed="clamp(1.7)">
-            <img
+            <Image
               className="w-full h-full object-cover object-top"
               src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453"
               alt="Image 1"
-              height="100%"
-              width="25%"
+              width={500}
+              height={1000}
+              priority
             />
           </div>
           <div className="flex-1 img-container" data-speed="clamp(2.5)">
-            <img
+            <Image
               className="w-full h-full object-cover object-top"
               src="https://images.unsplash.com/photo-1630255732364-a69ade0f0543"
               alt="Image 2"
-              height="100%"
-              width="25%"
+              width={500}
+              height={1000}
+              priority
             />
           </div>
           <div className="flex-1 img-container" data-speed="clamp(1.5)">
-            <img
+            <Image
               className="w-full h-full object-cover object-top"
               src="https://images.unsplash.com/photo-1607699032287-f58742a2693d"
-              alt=""
-              height="100%"
-              width="25%"
+              alt="Image 3"
+              width={500}
+              height={1000}
+              priority
             />
           </div>
           <div className="flex-1 img-container" data-speed="clamp(2.7)">
-            <img
+            <Image
               className="w-full h-full object-cover object-top"
               src="https://images.unsplash.com/photo-1534528741775-53994a69daeb"
-              alt=""
-              height="100%"
-              width="25%"
+              alt="Image 4"
+              width={500}
+              height={1000}
+              priority
             />
           </div>
         </div>
