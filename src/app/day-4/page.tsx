@@ -3,13 +3,24 @@ import BackButton from "@/components/BackButton";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Flip from "gsap/Flip";
-import { ChevronsDown } from "lucide-react";
-import { useRef } from "react";
+import {
+  BugIcon,
+  ChevronsDown,
+  Heart,
+  RotateCcw,
+  Triangle,
+} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 gsap.registerPlugin(Flip);
 
 const FlipTutorial = () => {
   const container = useRef(null);
+  const bugRef = useRef<SVGSVGElement | null>(null);
+  const [bugIndexes, setBugIndexes] = useState<number[]>([]);
+  const [bugSpeed, setBugSpeed] = useState(2500);
+  const [score, setScore] = useState(0);
+  const [lives, setLives] = useState(3);
 
   useGSAP(
     () => {
@@ -26,6 +37,23 @@ const FlipTutorial = () => {
     }
   );
 
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+
+    function startInterval() {
+      intervalId = setInterval(() => {
+        setBugIndexes(
+          Array.from({ length: 3 }, () => Math.floor(Math.random() * 64))
+        );
+      }, bugSpeed);
+    }
+    startInterval();
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [bugSpeed]);
+
   const switchPosition = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.currentTarget;
     const movingObject = document.querySelector("#moving-object");
@@ -34,10 +62,14 @@ const FlipTutorial = () => {
 
     target.appendChild(movingObject);
 
+    const targetIndex = Array.from(
+      document.querySelectorAll(".targets")
+    ).indexOf(target);
+    const bugEl = bugRef.current;
+    const isHit = bugIndexes.includes(targetIndex);
+
     gsap.to(movingObject, {
-      //   backgroundColor: `#${Math.floor(Math.random() * 0xff00ff)
-      //     .toString(16)
-      //     .padStart(6, "0")}`,
+      backgroundColor: isHit ? "#22c55e" : "#ef4444",
       borderRadius: gsap.utils.mapRange(
         0,
         1,
@@ -49,12 +81,48 @@ const FlipTutorial = () => {
       duration: 0.5,
       ease: "power2.out",
     });
+
+    if (isHit) {
+      gsap.to(target, {
+        scale: 0.8,
+        opacity: 0.8,
+        duration: 0.2,
+        yoyo: true,
+        repeat: 1,
+      });
+      setBugIndexes((prev) => prev.filter((idx) => idx !== targetIndex));
+      setBugSpeed((prev) => Math.max(prev - 50, 700));
+      setScore((prev) => prev + 1);
+    } else {
+      setLives((prev) => Math.max(prev - 1, 0));
+      gsap.fromTo(
+        target,
+        { scale: 1 },
+        {
+          scale: 1.1,
+          backgroundColor: "#f87171",
+          yoyo: true,
+          repeat: 1,
+          duration: 0.2,
+        }
+      );
+    }
+
     Flip.from(state, {
       duration: 0.5,
       ease: "power2.inOut",
       absolute: true,
       scale: true,
     });
+  };
+
+  const handleReset = () => {
+    setBugIndexes(
+      Array.from({ length: 3 }, () => Math.floor(Math.random() * 64))
+    );
+    setBugSpeed(1500);
+    setScore(0);
+    setLives(3);
   };
 
   return (
@@ -79,17 +147,53 @@ const FlipTutorial = () => {
         </div>
       </div>
       <div className="grid min-h-dvh snap-start place-items-center relative primary-section w-full">
+        <div className="w-full max-w-xl flex justify-between items-center mb-4">
+          <div className="flex items-center gap-2">
+            {Array.from({ length: lives }).map((_, i) => (
+              <Heart
+                key={i}
+                className="text-red-500"
+                size={20}
+                fill="currentColor"
+              />
+            ))}
+          </div>
+          <div className="text-sm font-semibold">Score: {score}</div>
+          <button
+            onClick={handleReset}
+            className="flex items-center gap-1 px-2 py-1 text-sm border rounded bg-background hover:bg-background/50 border-foreground"
+          >
+            {bugIndexes.length === 0 ? (
+              <>
+                <Triangle className="rotate-90" size={14} />
+                Start
+              </>
+            ) : (
+              <>
+                <RotateCcw size={14} />
+                Reset
+              </>
+            )}
+          </button>
+        </div>
+
         <div className="grid grid-cols-8 grid-rows-8 place-items-stretch w-full max-w-xl">
           {Array.from({ length: 64 }).map((_, i) => (
             <div
               onClick={switchPosition}
-              className="targets grid place-items-center bg-foreground/10 border border-solid border-foreground/40 aspect-square"
+              className="targets relative grid place-items-center bg-foreground/10 border border-solid border-foreground/40 aspect-square"
               key={i}
             >
               {i === 28 && (
                 <div
                   id="moving-object"
-                  className="w-2/3 aspect-square bg-indigo-600 dark:bg-indigo-400"
+                  className="w-2/3 aspect-square bg-foreground rounded-full"
+                />
+              )}
+              {bugIndexes.includes(i) && (
+                <BugIcon
+                  ref={i === bugIndexes[0] ? bugRef : null}
+                  className="absolute w-1/2 aspect-square text-red-600 dark:text-rose-400 rounded-full"
                 />
               )}
             </div>
