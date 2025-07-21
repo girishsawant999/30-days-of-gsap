@@ -84,7 +84,7 @@ const SmoothScrollTutorial = () => {
 
       <div id="smooth-content">
         <div className="min-h-dvh grid place-items-center relative primary-section">
-          <h1 className="text-8xl font-sans font-semibold leading-none">
+          <h1 className="text-4xl text-center md:text-8xl font-sans font-semibold leading-none">
             Explore SmoothScroller
           </h1>
 
