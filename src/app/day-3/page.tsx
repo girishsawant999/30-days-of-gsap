@@ -103,7 +103,7 @@ const SmoothScrollTutorial = () => {
               alt="Image 1"
               width={500}
               height={1000}
-              priority
+              loading="eager"
             />
           </div>
           <div className="flex-1 img-container" data-speed="clamp(2.5)">
@@ -113,7 +113,7 @@ const SmoothScrollTutorial = () => {
               alt="Image 2"
               width={500}
               height={1000}
-              priority
+              loading="eager"
             />
           </div>
           <div className="flex-1 img-container" data-speed="clamp(1.5)">
@@ -123,7 +123,7 @@ const SmoothScrollTutorial = () => {
               alt="Image 3"
               width={500}
               height={1000}
-              priority
+              loading="eager"
             />
           </div>
           <div className="flex-1 img-container" data-speed="clamp(2.7)">
@@ -133,7 +133,7 @@ const SmoothScrollTutorial = () => {
               alt="Image 4"
               width={500}
               height={1000}
-              priority
+              loading="eager"
             />
           </div>
         </div>
