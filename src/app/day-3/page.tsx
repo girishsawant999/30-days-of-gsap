@@ -1,12 +1,12 @@
 "use client";
 
 import BackButton from "@/components/BackButton";
+import ScrollToExplore from "@/components/ScrollToExplore";
 import { MODELS_IMAGES } from "@/constants/Models";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollSmoother from "gsap/ScrollSmoother";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { ChevronsDown } from "lucide-react";
 import Image from "next/image";
 import { useRef } from "react";
 
@@ -17,31 +17,12 @@ const SmoothScrollTutorial = () => {
 
   useGSAP(
     () => {
-      gsap.to("#scroll-down", {
-        y: 30,
-        ease: "power2.in",
-        duration: 0.5,
-        repeat: -1,
-        yoyo: true,
-      });
-      const smoother = ScrollSmoother.create({
+      ScrollSmoother.create({
         wrapper: smoothWrapper.current,
         content: "#smooth-content",
         smooth: 1.5,
         smoothTouch: 0.1,
         effects: true,
-      });
-      const sctr = ScrollTrigger.create({
-        trigger: smoothWrapper.current,
-        pin: true,
-        pinSpacing: false,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: true,
-        onUpdate(self) {
-          const { progress } = self;
-          console.log("pr", progress);
-        },
       });
 
       document.querySelectorAll(".img-container").forEach((group) => {
@@ -81,23 +62,19 @@ const SmoothScrollTutorial = () => {
       <div className="fixed top-5 md:top-10 left-5 md:left-10 z-20">
         <BackButton />
       </div>
+      <ScrollToExplore />
 
       <div id="smooth-content" className="bg-background text-foreground">
         <div className="min-h-dvh grid place-items-center relative primary-section">
-          <h1 className="text-4xl text-center md:text-8xl font-sans font-semibold leading-none">
+          <h1
+            className="text-4xl text-center md:text-8xl font-sans font-semibold leading-none z-10"
+            data-lag="clamp(5)"
+          >
             Explore SmoothScroller
           </h1>
-
-          <div
-            id="scroll-down"
-            className="absolute bottom-10 flex flex-col items-center gap-1 justify-center"
-          >
-            <span className="text-lg font-normal">Scroll down</span>
-            <ChevronsDown size={18} />
-          </div>
         </div>
         <div className="flex min-h-dvh items-stretch justify-center my-10">
-          {[1.7, 2.5, 1.5, 2.7].map((speed, idx) => (
+          {[1.7, 2.5, 1.5, 3].map((speed, idx) => (
             <div
               key={idx}
               className="flex-1 img-container"

@@ -1,10 +1,11 @@
 "use client";
 import BackButton from "@/components/BackButton";
+import ScrollToExplore from "@/components/ScrollToExplore";
 import { MODELS_IMAGES } from "@/constants/Models";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import { ChevronsDown, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 import { useRef } from "react";
 
@@ -23,26 +24,6 @@ const ScrollTriggerTutorial = () => {
         pinSpacing: true,
         onUpdate: ({ progress, ...self }) => {
           if (!container.current) return;
-          const scrollToExplore =
-            container.current.querySelector(".scroll-to-explore");
-
-          if (progress < 0.05) {
-            gsap.set(scrollToExplore, {
-              display: "flex",
-            });
-            gsap.to(".scroll-to-explore", {
-              opacity: 1,
-              y: 20,
-              yoyo: true,
-              ease: "expo.in",
-              repeat: -1,
-              duration: 0.5,
-            });
-          } else {
-            gsap.set(scrollToExplore, {
-              display: "none",
-            });
-          }
 
           if (progress <= 0.25) {
             const headings = document.querySelectorAll(
@@ -122,10 +103,7 @@ const ScrollTriggerTutorial = () => {
         <BackButton />
       </div>
 
-      <div className="scroll-to-explore z-10 absolute opacity-80  bottom-10 inset-x-0 flex flex-col place-items-center pointer-events-none">
-        <span>Scroll to explore</span>
-        <ChevronsDown className="text-current" size={20} />
-      </div>
+      <ScrollToExplore />
 
       <div className="introduction absolute bottom-10 md:static  opacity-0 z-10 px-5 ">
         <h2 className="text-4xl mb-3 md:text-8xl font-semibold font-sans text-white md:absolute bottom-10 left-10">
