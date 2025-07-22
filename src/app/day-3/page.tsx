@@ -1,6 +1,7 @@
 "use client";
 
 import BackButton from "@/components/BackButton";
+import { MODELS_IMAGES } from "@/constants/Models";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollSmoother from "gsap/ScrollSmoother";
@@ -96,46 +97,22 @@ const SmoothScrollTutorial = () => {
           </div>
         </div>
         <div className="flex min-h-dvh items-stretch justify-center my-10">
-          <div className="flex-1 img-container" data-speed="clamp(1.7)">
-            <Image
-              className="w-full h-full object-cover object-top"
-              src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453"
-              alt="Image 1"
-              width={500}
-              height={1000}
-              loading="eager"
-            />
-          </div>
-          <div className="flex-1 img-container" data-speed="clamp(2.5)">
-            <Image
-              className="w-full h-full object-cover object-top"
-              src="https://images.unsplash.com/photo-1630255732364-a69ade0f0543"
-              alt="Image 2"
-              width={500}
-              height={1000}
-              loading="eager"
-            />
-          </div>
-          <div className="flex-1 img-container" data-speed="clamp(1.5)">
-            <Image
-              className="w-full h-full object-cover object-top"
-              src="https://images.unsplash.com/photo-1607699032287-f58742a2693d"
-              alt="Image 3"
-              width={500}
-              height={1000}
-              loading="eager"
-            />
-          </div>
-          <div className="flex-1 img-container" data-speed="clamp(2.7)">
-            <Image
-              className="w-full h-full object-cover object-top"
-              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb"
-              alt="Image 4"
-              width={500}
-              height={1000}
-              loading="eager"
-            />
-          </div>
+          {[1.7, 2.5, 1.5, 2.7].map((speed, idx) => (
+            <div
+              key={idx}
+              className="flex-1 img-container"
+              data-speed={`clamp(${speed})`}
+            >
+              <Image
+                className="w-full h-full object-cover object-top"
+                src={MODELS_IMAGES[idx + 1]}
+                alt="Image 1"
+                width={1000}
+                height={1000}
+                loading="eager"
+              />
+            </div>
+          ))}
         </div>
         <div className="min-h-dvh"></div>
       </div>

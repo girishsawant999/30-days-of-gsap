@@ -1,5 +1,6 @@
 "use client";
 import BackButton from "@/components/BackButton";
+import { MODELS_IMAGES } from "@/constants/Models";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -142,11 +143,11 @@ const ScrollTriggerTutorial = () => {
 
       <div className="bg-image absolute inset-0">
         <Image
-          src="https://images.unsplash.com/photo-1532170579297-281918c8ae72?q=80&w=1484&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src={MODELS_IMAGES[0]}
           className="h-full w-full object-cover object-top scale-0"
           alt="Profile"
-          width={1920}
-          height={1080}
+          width={2000}
+          height={2000}
           quality={100}
           loading="eager"
         />
