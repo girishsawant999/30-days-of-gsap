@@ -1,16 +1,11 @@
 "use client";
 import BackButton from "@/components/BackButton";
+import ScrollToExplore from "@/components/ScrollToExplore";
 import { MODELS_IMAGES } from "@/constants/Models";
-import { useGSAP } from "@gsap/react";
+import clsx from "clsx";
 import gsap from "gsap";
 import Flip from "gsap/Flip";
-import {
-  BugIcon,
-  ChevronsDown,
-  Heart,
-  RotateCcw,
-  Triangle,
-} from "lucide-react";
+import { BugIcon, Heart, RotateCcw, Triangle } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -175,26 +170,8 @@ const KillBugsGame = () => {
 };
 
 const FlipTutorial = () => {
-  const bigLayout = { col: 1, row: 1, colSpan: 6, rowSpan: 6 };
-  const smallLayout = { col: "", row: "", colSpan: 3, rowSpan: 3 };
-
   const container = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
-
-  useGSAP(
-    () => {
-      gsap.to("#scroll-down", {
-        y: 30,
-        ease: "power2.in",
-        duration: 0.5,
-        repeat: -1,
-        yoyo: true,
-      });
-    },
-    {
-      scope: container,
-    }
-  );
 
   const switchToBigGrid = (idx: number) => () => {
     const state = Flip.getState("[data-grid]");
@@ -202,8 +179,7 @@ const FlipTutorial = () => {
     requestAnimationFrame(() => {
       Flip.from(state, {
         duration: 0.5,
-        ease: "power2.inOut",
-        fade: true,
+        ease: "circ.out",
       });
     });
   };
@@ -217,37 +193,28 @@ const FlipTutorial = () => {
         <BackButton />
       </div>
 
+      <ScrollToExplore />
+
       <div className="grid min-h-dvh place-items-center relative primary-section">
         <h1 className="text-4xl text-center md:text-8xl font-sans font-semibold leading-none">
           Explore Flip
         </h1>
-        <div
-          id="scroll-down"
-          className="absolute bottom-10 flex flex-col items-center gap-1 justify-center"
-        >
-          <span className="text-lg font-normal">Scroll down & click</span>
-          <ChevronsDown size={18} />
-        </div>
       </div>
 
       <div className="min-h-dvh  w-full grid place-items-center ">
         <div className="grid grid-cols-9 grid-rows-9 gap-1 md:gap-4 max-w-2xl w-full aspect-square bg-white border-4 md:border-[16px] border-white">
           {MODELS_IMAGES.map((url, index) => {
-            const {
-              col = "",
-              row = "",
-              colSpan,
-              rowSpan,
-            } = index === activeIndex ? bigLayout : smallLayout;
-
             return (
               <figure
                 key={index}
                 data-grid={index}
                 onClick={switchToBigGrid(index)}
-                className={`col-span-${colSpan} row-span-${rowSpan} col-start-${col} row-start-${row} ${
-                  index !== 0 ? "cursor-zoom-in" : ""
-                }`}
+                className={clsx({
+                  "cursor-zoom-in": index !== 0,
+                  "col-start-1 row-start-1 col-span-6 row-span-6 z-10":
+                    activeIndex === index,
+                  "col-span-3 row-span-3 z-0": activeIndex !== index,
+                })}
               >
                 <Image
                   src={url}
