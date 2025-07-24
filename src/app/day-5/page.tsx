@@ -56,25 +56,33 @@ const ScrambleTextTutorial = () => {
 
   let tl = useRef<gsap.core.Timeline | null>(null);
   const scramble: PointerEventHandler<HTMLElement> = (e) => {
-    if (tl.current) {
-      tl.current.revert();
-      tl.current.kill();
-    }
     tl.current = gsap.timeline();
     const target = e.currentTarget;
     const split = SplitText.create(target, {
       type: "words, chars",
     });
+
     split.words.forEach((word) => {
-      tl.current?.to(word, {
-        scrambleText: {
-          text: word.textContent ?? "",
-          chars: "random",
-          revealDelay: 0.5,
-          tweenLength: true,
+      tl.current?.to(
+        word,
+        {
+          scrambleText: {
+            text: word.textContent ?? "",
+            chars: "abcdefghijklmnopqrstuvwxyz123456789",
+            revealDelay: 0.5,
+            tweenLength: true,
+          },
         },
-      });
+        0
+      );
     });
+  };
+
+  const stopScramble: PointerEventHandler<HTMLElement> = (e) => {
+    if (tl.current) {
+      tl.current.revert();
+      tl.current.kill();
+    }
   };
 
   return (
@@ -86,6 +94,7 @@ const ScrambleTextTutorial = () => {
         <span className="text-center block mb-5">Hover over</span>
         <h1
           onPointerEnter={scramble}
+          onPointerLeave={stopScramble}
           className="text-7xl md:text-8xl font-bold text-center mb-5 overflow-hidden cursor-default tabular-nums"
           aria-label="Scramble Text Animation Example"
         >
@@ -93,6 +102,7 @@ const ScrambleTextTutorial = () => {
         </h1>
         <p
           onPointerEnter={scramble}
+          onPointerLeave={stopScramble}
           className="text-center text-lg cursor-default tabular-nums"
         >
           This example demonstrates GSAP's ScrambleText effect in action. Watch
