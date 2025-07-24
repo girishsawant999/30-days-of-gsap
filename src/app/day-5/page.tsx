@@ -87,7 +87,7 @@ const ScrambleTextTutorial = () => {
 
   return (
     <section className="p-5 md:p-10 grid place-items-center min-h-dvh">
-      <div className="flex items-center gap-3 md:fixed top-10 left-10 z-10">
+      <div className="flex items-center gap-3 fixed top-10 left-10 z-10">
         <BackButton />
       </div>
       <div className="max-w-3xl m-auto" ref={container}>
@@ -95,7 +95,7 @@ const ScrambleTextTutorial = () => {
         <h1
           onPointerEnter={scramble}
           onPointerLeave={stopScramble}
-          className="text-7xl md:text-8xl font-bold text-center mb-5 overflow-hidden cursor-default tabular-nums"
+          className="text-6xl md:text-8xl font-bold text-center mb-5 overflow-hidden cursor-default tabular-nums"
           aria-label="Scramble Text Animation Example"
         >
           Scramble Text Animation
