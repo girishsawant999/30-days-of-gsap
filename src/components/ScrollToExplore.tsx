@@ -21,7 +21,7 @@ const ScrollToExplore = ({
     ScrollTrigger.create({
       trigger: "#scroll-down",
       start: "clamp(top bottom)",
-      end: "clamp(top bottom-=200px)",
+      end: "clamp(top 500px)",
       onEnter: () => {
         gsap.to("#scroll-down", { opacity: 1 });
       },
