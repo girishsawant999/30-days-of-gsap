@@ -69,19 +69,15 @@ const TextReplaceTutorial = () => {
         .fromTo(
           headingSplit.words,
           {
-            y: 100,
-            rotationX: 90,
-            transformOrigin: "top center",
-            duration: 0.8,
-            ease: "back.out(1.7)",
+            y: -50,
+            duration: 0.5,
+            ease: "power2.out",
             stagger: 0.02,
           },
           {
             y: 0,
-            rotationX: 0,
-            transformOrigin: "top center",
-            duration: 0.8,
-            ease: "back.out(1.7)",
+            duration: 0.5,
+            ease: "power2.out",
             stagger: 0.02,
           },
           "<"
