@@ -201,7 +201,7 @@ const FlipTutorial = () => {
         </h1>
       </div>
 
-      <div className="min-h-dvh  w-full grid place-items-center ">
+      <div className="min-h-dvh w-full grid place-items-center ">
         <div className="grid grid-cols-9 grid-rows-9 gap-1 md:gap-4 max-w-2xl w-full aspect-square bg-white border-4 md:border-[16px] border-white">
           {MODELS_IMAGES.map((url, index) => {
             return (
@@ -209,7 +209,7 @@ const FlipTutorial = () => {
                 key={index}
                 data-grid={index}
                 onClick={switchToBigGrid(index)}
-                className={clsx("pointer-events-none", {
+                className={clsx("select-none", {
                   "cursor-zoom-in": index !== activeIndex,
                   "col-start-1 row-start-1 col-span-6 row-span-6 z-10":
                     activeIndex === index,
