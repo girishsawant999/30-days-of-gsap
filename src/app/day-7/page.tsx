@@ -17,6 +17,9 @@ const DraggableTutorial = () => {
     () => {
       const ball = ballRef.current;
       const container = containerRef.current;
+      if (!ball || !container) return;
+      let vh = container.clientHeight;
+      let vw = container.clientWidth;
 
       const getBallProp = gsap.getProperty(ball);
       const getContainerProp = gsap.getProperty(container);
@@ -27,24 +30,25 @@ const DraggableTutorial = () => {
       });
 
       const setBallToCenter = () => {
+        vh = container.clientHeight;
+        vw = container.clientWidth;
+
         const textBlock = document.querySelector(".text-block");
         if (!textBlock) return;
         const textBlockRect = textBlock.getBoundingClientRect();
 
         gsap.set(ball, {
           xPercent: -50,
+          yPercent: -50,
           opacity: 1,
           x: textBlockRect.left + textBlockRect.width / 2,
-          y: textBlockRect.bottom + 20,
+          y: textBlockRect.bottom + ball.clientHeight + 30,
         });
       };
 
       setBallToCenter();
 
       const checkBounds = () => {
-        const vw = getContainerProp("width") as number;
-        const vh = getContainerProp("height") as number;
-
         let vx = InertiaPlugin.getVelocity(ball!, "x");
         let vy = InertiaPlugin.getVelocity(ball!, "y");
 
