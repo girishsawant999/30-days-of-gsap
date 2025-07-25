@@ -209,8 +209,8 @@ const FlipTutorial = () => {
                 key={index}
                 data-grid={index}
                 onClick={switchToBigGrid(index)}
-                className={clsx({
-                  "cursor-zoom-in": index !== 0,
+                className={clsx("pointer-events-none", {
+                  "cursor-zoom-in": index !== activeIndex,
                   "col-start-1 row-start-1 col-span-6 row-span-6 z-10":
                     activeIndex === index,
                   "col-span-3 row-span-3 z-0": activeIndex !== index,
