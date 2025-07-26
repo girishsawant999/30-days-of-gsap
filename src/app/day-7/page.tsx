@@ -90,12 +90,6 @@ const DraggableTutorial = () => {
         vx: string | number = "auto",
         vy: string | number = "auto"
       ) => {
-        console.log("first", {
-          x,
-          y,
-          vx,
-          vy,
-        });
         gsap.fromTo(
           ball,
           { x, y, rotate: 0 },
