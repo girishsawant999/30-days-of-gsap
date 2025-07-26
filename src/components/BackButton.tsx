@@ -9,14 +9,16 @@ const BackButton = () => {
   const iconRef = useRef(null);
 
   const toggle = () => {
-    const tl = gsap.timeline();
+    const tl = gsap.timeline({
+      onComplete() {
+        router.push("/");
+        gsap.killTweensOf(iconRef.current);
+      },
+    });
     tl.to(iconRef.current, {
       x: -90,
       duration: 0.2,
       ease: "power2.in",
-      onComplete() {
-        router.push("/");
-      },
     }).to(iconRef.current, {
       x: 0,
       duration: 0.2,

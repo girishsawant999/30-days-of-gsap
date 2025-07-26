@@ -22,12 +22,7 @@ const DraggableTutorial = () => {
       let vw = container.clientWidth;
 
       const getBallProp = gsap.getProperty(ball);
-      const getContainerProp = gsap.getProperty(container);
       const friction = -0.5;
-
-      gsap.defaults({
-        overwrite: true,
-      });
 
       const setBallToCenter = () => {
         vh = container.clientHeight;
@@ -129,7 +124,7 @@ const DraggableTutorial = () => {
       <div className="fixed flex items-center gap-3 top-5 md:top-10 left-5 md:left-10 z-20">
         <BackButton />
       </div>
-      <div className="absolute text-block  top-1/2 left-1/2 -translate-1/2 flex place-items-center flex-col gap-1 z-10 pointer-events-none">
+      <div className="absolute text-block  top-1/2 left-1/2 -translate-1/2 flex place-items-center flex-col gap-1 z-20 pointer-events-none">
         <h1 className="font-sans text-4xl md:text-7xl font-bold text-center w-max [-webkit-stroke-color:#f00] [-webkit-text-stroke:2px] ">
           Draggable & Inertia
         </h1>
@@ -140,7 +135,7 @@ const DraggableTutorial = () => {
       <div
         ref={ballRef}
         className={clsx(
-          "ball opacity-0 size-24 bg-green-600 rounded-full overflow-hidden",
+          "ball opacity-0 size-24 bg-green-600 rounded-full overflow-hidden z-10",
           "before:absolute before:size-24 before:rounded-full before:border-4 before:border-solid before:border-white before:-top-16",
           "after:absolute after:size-24 after:rounded-full after:border-4 after:border-solid after:border-white after:-bottom-16"
         )}
