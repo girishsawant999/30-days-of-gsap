@@ -113,8 +113,8 @@ const DraggableTutorial = () => {
         onDragEndParams: [],
       });
 
-      window.addEventListener("resize", setBallToCenter);
-      return () => window.removeEventListener("resize", setBallToCenter);
+      container.addEventListener("resize", setBallToCenter);
+      return () => container.removeEventListener("resize", setBallToCenter);
     },
     {
       scope: containerRef,
