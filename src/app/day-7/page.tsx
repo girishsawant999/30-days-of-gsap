@@ -38,6 +38,7 @@ const DraggableTutorial = () => {
           opacity: 1,
           x: textBlockRect.left + textBlockRect.width / 2,
           y: textBlockRect.bottom + ball.clientHeight + 30,
+          overwrite: true,
         });
       };
 
@@ -87,7 +88,7 @@ const DraggableTutorial = () => {
       ) => {
         gsap.fromTo(
           ball,
-          { x, y, rotate: 0 },
+          { x, y, rotate: 0, overwrite: true },
           {
             rotate:
               Math.sqrt((vx as number) ** 2 + (vy as number) ** 2) * Math.PI,
@@ -96,6 +97,7 @@ const DraggableTutorial = () => {
               y: vy,
             },
             onUpdate: checkBounds,
+            overwrite: true,
           }
         );
       };
