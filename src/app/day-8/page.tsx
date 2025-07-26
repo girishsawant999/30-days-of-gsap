@@ -128,7 +128,6 @@ const PepsiLandingPage = () => {
         start: "clamp(top center)",
         end: "clamp(top top)",
         scrub: true,
-        markers: true,
       },
     });
 
