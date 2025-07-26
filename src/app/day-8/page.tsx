@@ -3,7 +3,6 @@
 import { useGSAP } from "@gsap/react";
 import clsx from "clsx";
 import gsap from "gsap";
-import ScrollSmoother from "gsap/ScrollSmoother";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
@@ -14,7 +13,7 @@ import PepsiCanImage from "./assets/pepsi-can.png";
 import Smoke2 from "./assets/smoke-1.svg";
 import Smoke1 from "./assets/smoke.svg";
 
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+gsap.registerPlugin(ScrollTrigger);
 
 const PepsiLandingPage = () => {
   useGSAP(() => {
@@ -39,105 +38,107 @@ const PepsiLandingPage = () => {
       ScrollTrigger.refresh();
     };
 
-    if (
-      !canContainer ||
-      !introSection ||
-      !productsSection ||
-      !smoke1 ||
-      !smoke2 ||
-      !productPlaceholder ||
-      !buyProductPlaceholder
-    ) {
-      console.warn("One or more required elements not found.");
-      return;
-    }
+    requestAnimationFrame(() => {
+      if (
+        !canContainer ||
+        !introSection ||
+        !productsSection ||
+        !smoke1 ||
+        !smoke2 ||
+        !productPlaceholder ||
+        !buyProductPlaceholder
+      ) {
+        console.warn("One or more required elements not found.");
+        return;
+      }
 
-    const ccRect = canContainer.getBoundingClientRect();
-    const ppRect = productPlaceholder.getBoundingClientRect();
-    const bppRect = buyProductPlaceholder.getBoundingClientRect();
+      const ccRect = canContainer.getBoundingClientRect();
+      const ppRect = productPlaceholder.getBoundingClientRect();
+      const bppRect = buyProductPlaceholder.getBoundingClientRect();
 
-    gsap.set(canContainer, {
-      opacity: 1,
-      x: vw * 0.5 - ccRect.width * 0.5,
-      y: vh - ccRect.height * 0.75,
-    });
+      gsap.set(canContainer, {
+        opacity: 1,
+        x: vw * 0.5 - ccRect.width * 0.5,
+        y: vh - ccRect.height * 0.75,
+      });
 
-    gsap.from(smoke1, {
-      scaleX: 0.5,
-      scaleY: 0.7,
-      opacity: 0.8,
-      ease: "power2.inOut",
-      yoyo: true,
-      repeat: -1,
-      duration: 2,
-    });
-
-    gsap.from(smoke2, {
-      scaleX: 0.5,
-      scaleY: 0.7,
-      opacity: 0.8,
-      ease: "power2.inOut",
-      yoyo: true,
-      repeat: -1,
-      duration: 2,
-    });
-
-    const ices = gsap.utils.selector(iceContainer);
-    const iceTween = gsap
-      .to(ices("img"), {
-        yPercent: -vh,
-        rotate: 360,
-        opacity: 0,
-        stagger: {
-          amount: 0.1,
-          from: "random",
-        },
-        duration: 1,
+      gsap.from(smoke1, {
+        scaleX: 0.5,
+        scaleY: 0.7,
+        opacity: 0.8,
         ease: "power2.inOut",
-      })
-      .pause(0);
+        yoyo: true,
+        repeat: -1,
+        duration: 2,
+      });
 
-    const pptl = gsap.timeline({
-      scrollTrigger: {
-        trigger: productsSection,
-        start: "clamp(top bottom)",
-        end: "clamp(top top)",
-        scrub: true,
-      },
-      onStart() {
-        iceTween.play();
-      },
-      onReverseComplete() {
-        iceTween.reverse();
-      },
-    });
+      gsap.from(smoke2, {
+        scaleX: 0.5,
+        scaleY: 0.7,
+        opacity: 0.8,
+        ease: "power2.inOut",
+        yoyo: true,
+        repeat: -1,
+        duration: 2,
+      });
 
-    pptl.to(canContainer, {
-      scale: 1,
-      rotate: 360,
-      width: productPlaceholder.clientWidth,
-      x: ppRect.left - ccRect.left,
-      y: ppRect.top - ccRect.top,
-      pin: canContainer,
-    });
+      const ices = gsap.utils.selector(iceContainer);
+      const iceTween = gsap
+        .to(ices("img"), {
+          yPercent: -vh,
+          rotate: 360,
+          opacity: 0,
+          stagger: {
+            amount: 0.1,
+            from: "random",
+          },
+          duration: 1,
+          ease: "power2.inOut",
+        })
+        .pause(0);
 
-    // Buy now page
-    const bptl = gsap.timeline({
-      scrollTrigger: {
-        trigger: buyNowSection,
-        start: "clamp(top center)",
-        end: "clamp(top top)",
-        scrub: true,
-      },
-    });
+      const pptl = gsap.timeline({
+        scrollTrigger: {
+          trigger: productsSection,
+          start: "clamp(top bottom)",
+          end: "clamp(top top)",
+          scrub: true,
+        },
+        onStart() {
+          iceTween.play();
+        },
+        onReverseComplete() {
+          iceTween.reverse();
+        },
+      });
 
-    bptl.to(canContainer, {
-      scale: 1,
-      rotate: 0,
-      width: bppRect.width,
-      x: bppRect.left - ccRect.left,
-      y: bppRect.top - ccRect.top,
-      pin: canContainer,
+      pptl.to(canContainer, {
+        scale: 1,
+        rotate: 360,
+        width: productPlaceholder.clientWidth,
+        x: ppRect.left - ccRect.left,
+        y: ppRect.top - ccRect.top,
+        pin: canContainer,
+      });
+
+      // Buy now page
+      const bptl = gsap.timeline({
+        scrollTrigger: {
+          trigger: buyNowSection,
+          start: "clamp(top center)",
+          end: "clamp(top top)",
+          scrub: true,
+        },
+      });
+
+      bptl.to(canContainer, {
+        scale: 1,
+        rotate: 0,
+        width: bppRect.width,
+        x: bppRect.left - ccRect.left,
+        y: bppRect.top - ccRect.top,
+        pin: canContainer,
+      });
     });
 
     window.addEventListener("resize", refreshScrollTrigger);
