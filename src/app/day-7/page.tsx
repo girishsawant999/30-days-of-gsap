@@ -126,7 +126,7 @@ const DraggableTutorial = () => {
 
   return (
     <section ref={containerRef} className="min-h-dvh relative overflow-hidden">
-      <div className="fixed flex items-center gap-3 top-5 md:top-10 left-5 md:left-10 z-10">
+      <div className="fixed flex items-center gap-3 top-5 md:top-10 left-5 md:left-10 z-20">
         <BackButton />
       </div>
       <div className="absolute text-block  top-1/2 left-1/2 -translate-1/2 flex place-items-center flex-col gap-1 z-10 pointer-events-none">
