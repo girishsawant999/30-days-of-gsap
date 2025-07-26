@@ -7,6 +7,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
 import IceCubeImage from "./assets/ice-cube.png";
 import LogoImage from "./assets/logo.png";
 import PepsiCanImage from "./assets/pepsi-can.png";
@@ -16,18 +17,28 @@ import Smoke1 from "./assets/smoke.svg";
 gsap.registerPlugin(ScrollTrigger);
 
 const PepsiLandingPage = () => {
+  // --- Begin refs ---
+  const canContainerRef = useRef<HTMLDivElement>(null);
+  const introSectionRef = useRef<HTMLElement>(null);
+  const productsSectionRef = useRef<HTMLElement>(null);
+  const smoke1Ref = useRef<HTMLImageElement>(null);
+  const smoke2Ref = useRef<HTMLImageElement>(null);
+  const productPlaceholderRef = useRef<HTMLDivElement>(null);
+  const buyNowSectionRef = useRef<HTMLElement>(null);
+  const buyProductPlaceholderRef = useRef<HTMLDivElement>(null);
+  const iceContainerRef = useRef<HTMLDivElement>(null);
+  // --- End refs ---
+
   useGSAP(() => {
-    const canContainer = document.getElementById("pepsi-can-container");
-    const introSection = document.getElementById("intro");
-    const productsSection = document.getElementById("products");
-    const smoke1 = document.getElementById("smoke-1");
-    const smoke2 = document.getElementById("smoke-2");
-    const productPlaceholder = document.getElementById("product-placeholder");
-    const buyNowSection = document.getElementById("buy-now-section");
-    const buyProductPlaceholder = document.getElementById(
-      "buy-product-placeholder"
-    );
-    const iceContainer = document.getElementById("ice-container");
+    const canContainer = canContainerRef.current;
+    const introSection = introSectionRef.current;
+    const productsSection = productsSectionRef.current;
+    const smoke1 = smoke1Ref.current;
+    const smoke2 = smoke2Ref.current;
+    const productPlaceholder = productPlaceholderRef.current;
+    const buyNowSection = buyNowSectionRef.current;
+    const buyProductPlaceholder = buyProductPlaceholderRef.current;
+    const iceContainer = iceContainerRef.current;
 
     let vh = window.innerHeight;
     let vw = window.innerWidth;
@@ -154,6 +165,7 @@ const PepsiLandingPage = () => {
     >
       <div
         id="pepsi-can-container"
+        ref={canContainerRef}
         className="absolute opacity-0 pointer-events-none z-40 origin-center"
       >
         <div className="relative grid place-items-center isolate">
@@ -161,6 +173,7 @@ const PepsiLandingPage = () => {
             src={Smoke1}
             alt="Smooke"
             id="smoke-1"
+            ref={smoke1Ref}
             width={560}
             height={750}
             className="absolute z-10  -translate-x-1/8 md:-translate-x-1/4"
@@ -169,6 +182,7 @@ const PepsiLandingPage = () => {
             src={Smoke2}
             alt="Smooke"
             id="smoke-2"
+            ref={smoke2Ref}
             width={750}
             height={656}
             className="absolute z-10 translate-x-1/8 md:translate-x-1/4"
@@ -225,6 +239,7 @@ const PepsiLandingPage = () => {
 
       <section
         id="intro"
+        ref={introSectionRef}
         className="mx-auto max-w-[min(90vw,1200px)] grid min-h-[calc(100dvh_-_108px)] relative mb-36"
       >
         <div className="flex items-center md:items-start md:justify-center gap-5 flex-col z-50 mt-10 md:mt-0">
@@ -239,7 +254,11 @@ const PepsiLandingPage = () => {
           </a>
         </div>
 
-        <div id="ice-container" className="absolute bottom-0 w-full left-0">
+        <div
+          id="ice-container"
+          ref={iceContainerRef}
+          className="absolute bottom-0 w-full left-0"
+        >
           <Image
             className="absolute -bottom-36 -left-40 scale-50"
             src={IceCubeImage}
@@ -294,6 +313,7 @@ const PepsiLandingPage = () => {
 
       <section
         id="products"
+        ref={productsSectionRef}
         className=" grid relative bg-[linear-gradient(153.46deg,_#003885_24.59%,_#094b77_83.35%)]"
       >
         <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-5 py-10 place-items-stretch mx-auto max-w-[min(90vw,1200px)]">
@@ -339,6 +359,7 @@ const PepsiLandingPage = () => {
           </div>
           <div
             id="product-placeholder"
+            ref={productPlaceholderRef}
             className="aspect-[554/713] hue-rotate-[320deg] grid place-items-center"
           ></div>
           <div className="aspect-[554/713] hue-rotate-[235deg] grid place-items-center">
@@ -362,6 +383,7 @@ const PepsiLandingPage = () => {
 
       <section
         id="buy-now-section"
+        ref={buyNowSectionRef}
         className="min-h-screen bg-[linear-gradient(153.46deg,_#003885_24.59%,_#094b77_83.35%)] relative grid place-items-center"
       >
         <div className="flex flex-col-reverse md:flex-row  mx-auto max-w-[min(90vw,1200px)] py-20  w-full">
@@ -444,6 +466,7 @@ const PepsiLandingPage = () => {
 
           <div
             id="buy-product-placeholder"
+            ref={buyProductPlaceholderRef}
             className="aspect-[554/713] flex-1 mb-5 md:mb-0"
           ></div>
         </div>
