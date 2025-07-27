@@ -10,7 +10,14 @@ import Link from "next/link";
 import { useRef } from "react";
 import IceCubeImage from "./assets/ice-cube.png";
 import LogoImage from "./assets/logo.png";
-import PepsiCanImage from "./assets/pepsi-can.png";
+import Pepsi1 from "./assets/pepsi/image 1.png";
+import Pepsi2 from "./assets/pepsi/image 2.png";
+import Pepsi3 from "./assets/pepsi/image 3.png";
+import Pepsi4 from "./assets/pepsi/image 4.png";
+import Pepsi5 from "./assets/pepsi/image 5.png";
+import Pepsi6 from "./assets/pepsi/image 6.png";
+import Pepsi7 from "./assets/pepsi/image 7.png";
+import Pepsi8 from "./assets/pepsi/image 8.png";
 import Smoke2 from "./assets/smoke-1.svg";
 import Smoke1 from "./assets/smoke.svg";
 
@@ -27,6 +34,7 @@ const PepsiLandingPage = () => {
   const buyNowSectionRef = useRef<HTMLElement>(null);
   const buyProductPlaceholderRef = useRef<HTMLDivElement>(null);
   const iceContainerRef = useRef<HTMLDivElement>(null);
+  const pepsiBlackPlaceholderRef = useRef<HTMLDivElement>(null);
   // --- End refs ---
 
   useGSAP(() => {
@@ -63,15 +71,34 @@ const PepsiLandingPage = () => {
         return;
       }
 
-      const ccRect = canContainer.getBoundingClientRect();
+      // Calculate rects before any GSAP transformation
+      const ccRectInitial = canContainer.getBoundingClientRect();
       const ppRect = productPlaceholder.getBoundingClientRect();
       const bppRect = buyProductPlaceholder.getBoundingClientRect();
 
+      console.log(
+        "Before GSAP set:",
+        ppRect.left,
+        ppRect.top,
+        ccRectInitial.left,
+        ccRectInitial.top
+      );
+
       gsap.set(canContainer, {
         opacity: 1,
-        x: vw * 0.5 - ccRect.width * 0.5,
-        y: vh - ccRect.height * 0.75,
+        x: vw * 0.5 - ccRectInitial.width * 0.5,
+        y: vh - ccRectInitial.height * 0.75,
       });
+
+      // Recalculate after setting to observe difference
+      const ccRectAfterSet = canContainer.getBoundingClientRect();
+      console.log(
+        "After GSAP set:",
+        ppRect.left,
+        ppRect.top,
+        ccRectAfterSet.left,
+        ccRectAfterSet.top
+      );
 
       gsap.from(smoke1, {
         scaleX: 0.5,
@@ -111,9 +138,10 @@ const PepsiLandingPage = () => {
       const pptl = gsap.timeline({
         scrollTrigger: {
           trigger: productsSection,
-          start: "clamp(top bottom)",
+          start: "clamp(top bottom-=50px)",
           end: "clamp(top top)",
           scrub: true,
+          markers: true,
         },
         onStart() {
           iceTween.play();
@@ -127,8 +155,8 @@ const PepsiLandingPage = () => {
         scale: 1,
         rotate: 360,
         width: productPlaceholder.clientWidth,
-        x: ppRect.left - ccRect.left,
-        y: ppRect.top - ccRect.top,
+        x: ppRect.left,
+        y: ppRect.top + 20,
         pin: canContainer,
       });
 
@@ -146,8 +174,8 @@ const PepsiLandingPage = () => {
         scale: 1,
         rotate: 0,
         width: bppRect.width,
-        x: bppRect.left - ccRect.left,
-        y: bppRect.top - ccRect.top,
+        x: bppRect.left,
+        y: bppRect.top,
         pin: canContainer,
       });
     });
@@ -188,7 +216,7 @@ const PepsiLandingPage = () => {
             className="absolute z-10 translate-x-1/8 md:translate-x-1/4"
           />
           <Image
-            src={PepsiCanImage}
+            src={Pepsi6}
             alt="Pepsi Can"
             width={554}
             height={713}
@@ -198,7 +226,7 @@ const PepsiLandingPage = () => {
         </div>
       </div>
 
-      <header className="flex sticky top-0 items-center gap-5 justify-between mx-auto max-w-[min(90vw,1200px)] py-6 ">
+      <header className="flex items-center gap-5 justify-between mx-auto max-w-[min(90vw,1200px)] py-6 ">
         <Link href="/">
           <Image
             width={184}
@@ -248,6 +276,7 @@ const PepsiLandingPage = () => {
           </h1>
           <a
             href="#"
+            autoFocus
             className="text-xl text-left text-white font-sans border border-white rounded-md px-4 py-1 flex items-center justify-between backdrop-blur-sm"
           >
             Browse <ArrowRight />
@@ -314,69 +343,34 @@ const PepsiLandingPage = () => {
       <section
         id="products"
         ref={productsSectionRef}
-        className=" grid relative bg-[linear-gradient(153.46deg,_#003885_24.59%,_#094b77_83.35%)]"
+        className=" grid relative"
       >
         <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-5 py-10 place-items-stretch mx-auto max-w-[min(90vw,1200px)]">
-          <div className="aspect-[554/713] hue-rotate-15 grid place-items-center">
-            <Image
-              src={PepsiCanImage}
-              alt="Pepsi Can"
-              width={554}
-              height={713}
-            />
+          <div className="aspect-[554/713] grid place-items-center">
+            <Image src={Pepsi1} alt="Pepsi Can" width={554} height={713} />
           </div>
-          <div className="aspect-[554/713] hue-rotate-30 grid place-items-center">
-            <Image
-              src={PepsiCanImage}
-              alt="Pepsi Can"
-              width={554}
-              height={713}
-            />
+          <div className="aspect-[554/713] grid place-items-center">
+            <Image src={Pepsi2} alt="Pepsi Can" width={554} height={713} />
           </div>
-          <div className="aspect-[554/713] hue-rotate-60 grid place-items-center">
-            <Image
-              src={PepsiCanImage}
-              alt="Pepsi Can"
-              width={554}
-              height={713}
-            />
+          <div className="aspect-[554/713] grid place-items-center">
+            <Image src={Pepsi3} alt="Pepsi Can" width={554} height={713} />
           </div>
-          <div className="aspect-[554/713] hue-rotate-90 grid place-items-center">
-            <Image
-              src={PepsiCanImage}
-              alt="Pepsi Can"
-              width={554}
-              height={713}
-            />
+          <div className="aspect-[554/713] grid place-items-center">
+            <Image src={Pepsi4} alt="Pepsi Can" width={554} height={713} />
           </div>
-          <div className="aspect-[554/713] hue-rotate-180 grid place-items-center">
-            <Image
-              src={PepsiCanImage}
-              alt="Pepsi Can"
-              width={554}
-              height={713}
-            />
+          <div className="aspect-[554/713] grid place-items-center">
+            <Image src={Pepsi5} alt="Pepsi Can" width={554} height={713} />
           </div>
           <div
             id="product-placeholder"
             ref={productPlaceholderRef}
-            className="aspect-[554/713] hue-rotate-[320deg] grid place-items-center"
+            className="aspect-[554/713]  grid place-items-center"
           ></div>
-          <div className="aspect-[554/713] hue-rotate-[235deg] grid place-items-center">
-            <Image
-              src={PepsiCanImage}
-              alt="Pepsi Can"
-              width={554}
-              height={713}
-            />
+          <div className="aspect-[554/713] grid place-items-center">
+            <Image src={Pepsi7} alt="Pepsi Can" width={554} height={713} />
           </div>
-          <div className="aspect-[554/713] hue-rotate-[20deg] grid place-items-center">
-            <Image
-              src={PepsiCanImage}
-              alt="Pepsi Can"
-              width={554}
-              height={713}
-            />
+          <div className="aspect-[554/713] grid place-items-center">
+            <Image src={Pepsi8} alt="Pepsi Can" width={554} height={713} />
           </div>
         </div>
       </section>
@@ -384,7 +378,7 @@ const PepsiLandingPage = () => {
       <section
         id="buy-now-section"
         ref={buyNowSectionRef}
-        className="min-h-screen bg-[linear-gradient(153.46deg,_#003885_24.59%,_#094b77_83.35%)] relative grid place-items-center"
+        className="min-h-screen relative grid place-items-center"
       >
         <div className="flex flex-col-reverse md:flex-row  mx-auto max-w-[min(90vw,1200px)] py-20  w-full">
           <div className="flex flex-col gap-8 justify-center">
@@ -467,6 +461,97 @@ const PepsiLandingPage = () => {
           <div
             id="buy-product-placeholder"
             ref={buyProductPlaceholderRef}
+            className="aspect-[554/713] flex-1 mb-5 md:mb-0"
+          ></div>
+        </div>
+      </section>
+      <section
+        id="buy-now-section-2"
+        className="min-h-screen relative grid place-items-center bg-gradient-to-b from-[#07477a]  to-50% to-black"
+      >
+        <div className="flex flex-col-reverse md:flex-row-reverse  mx-auto max-w-[min(90vw,1200px)] py-20  w-full">
+          <div className="flex flex-col gap-8 justify-center">
+            <h2 className="text-8xl font-bold font-sans text-white">
+              Pepsi Black
+            </h2>
+            <p className="text-white/60 font-sans text-xl max-w-xl">
+              Carbonated Water, High fructose, Corn Syrup, Caramel Color,
+              Sugar,Phosphoric Acid, Caffine, Citric Acid, Natural Flavour
+            </p>
+            <div className="flex flex-col gap-4">
+              <span className="text-white font-bold text-xl">
+                NUTRITION FACT
+              </span>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 items-stretch">
+                <div className="flex flex-col gap-4 bg-white/20 items-center pt-3">
+                  <span className="px-1 text-white/80 font-light text-base text-center">
+                    Amount per serving
+                  </span>
+                  <span className="font-semibold text-white text-2xl mt-auto text-center">
+                    0 cl
+                  </span>
+                  <div className="mt-auto bg-white/20 text-white font-light text-base self-stretch text-center py-1.5">
+                    0%
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-4 bg-white/20 items-center pt-3">
+                  <span className="px-1 text-white/80 font-light text-base text-center">
+                    Total Fat
+                  </span>
+                  <span className="font-semibold text-white text-2xl mt-auto text-center">
+                    0g
+                  </span>
+                  <div className="mt-auto bg-white/20 text-white font-light text-base self-stretch text-center py-1.5">
+                    0%
+                  </div>
+                </div>
+                <div className="flex flex-col gap-4 bg-white/20 items-center pt-3">
+                  <span className="px-1 text-white/80 font-light text-base text-center">
+                    Sodium
+                  </span>
+                  <span className="font-semibold text-white text-2xl mt-auto text-center">
+                    30mg
+                  </span>
+                  <div className="mt-auto bg-white/20 text-white font-light text-base self-stretch text-center py-1.5">
+                    1%
+                  </div>
+                </div>
+                <div className="flex flex-col gap-4 bg-white/20 items-center pt-3">
+                  <span className="px-1 text-white/80 font-light text-base text-center">
+                    Protein
+                  </span>
+                  <span className="font-semibold text-white text-2xl mt-auto text-center">
+                    0g
+                  </span>
+                  <div className="mt-auto bg-white/20 text-white font-light text-base self-stretch text-center py-1.5">
+                    0%
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p className="opacity-[0.66] text-xl text-left text-white font-sans">
+              <span className="opacity-[0.66] text-xl text-left text-white font-sans">
+                Not a significant source of other Nutrients .
+              </span>
+              <br />
+              <span className="opacity-[0.66] text-xl text-left text-white font-sans">
+                *Percent daily Values are based on a 2,000 calorie diet.
+              </span>
+            </p>
+
+            <a
+              href="#"
+              className="text-xl w-fit text-left text-white font-sans border border-white rounded-md px-4 py-1 flex items-center gap-3"
+            >
+              Buy Now <ArrowRight />
+            </a>
+          </div>
+
+          <div
+            id="buy-product-placeholder-2"
+            ref={pepsiBlackPlaceholderRef}
             className="aspect-[554/713] flex-1 mb-5 md:mb-0"
           ></div>
         </div>
