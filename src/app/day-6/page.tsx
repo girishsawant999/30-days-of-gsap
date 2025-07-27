@@ -126,7 +126,7 @@ const TextReplaceTutorial = () => {
       </div>
 
       <div className="intro mt-10 absolute top-15 md:top-10 md:right-0 flex flex-col items-center md:items-end  z-10 opacity-0 px-10">
-        <h1 className="text-4xl md:text-end font-sans md:text-6xl font-semibold text-primary mb-2">
+        <h1 className="text-4xl md:text-end font-sans md:text-7xl font-bold text-primary mb-2">
           Explore Timeline
         </h1>
         <p className="text-lg text-center md:text-end font-sans leading-snug max-w-md [&_.word]:opacity-30 text-gray-600 dark:text-gray-400 ">
