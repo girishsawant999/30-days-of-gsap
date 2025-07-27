@@ -90,25 +90,35 @@ const PepsiLandingPage = () => {
       const pbpRect = pepsiBlackPlaceholder.getBoundingClientRect();
       const pbcRect = pepsiBlackContainer.getBoundingClientRect();
 
-      gsap.from(smoke1, {
-        scaleX: 0.5,
-        scaleY: 0.7,
-        opacity: 0.8,
-        ease: "power2.inOut",
-        yoyo: true,
-        repeat: -1,
-        duration: 2,
-      });
-
-      gsap.from(smoke2, {
-        scaleX: 0.5,
-        scaleY: 0.7,
-        opacity: 0.8,
-        ease: "power2.inOut",
-        yoyo: true,
-        repeat: -1,
-        duration: 2,
-      });
+      const smoke1Tween = gsap.fromTo(
+        smoke1,
+        {
+          scale: 0,
+        },
+        {
+          scale: 2,
+          opacity: 0,
+          ease: "power2.in",
+          duration: 3,
+          repeat: -1,
+          repeatDelay: 0.5,
+        }
+      );
+      const smoke2Tween = gsap.fromTo(
+        smoke2,
+        {
+          scale: 0,
+        },
+        {
+          scale: 2,
+          opacity: 0,
+          ease: "power2.in",
+          duration: 4,
+          delay: 0.3,
+          repeat: -1,
+          repeatDelay: 1.4,
+        }
+      );
 
       const ices = gsap.utils.selector(iceContainer);
       const iceTween = gsap
@@ -134,9 +144,13 @@ const PepsiLandingPage = () => {
         },
         onStart() {
           iceTween.play();
+          smoke1Tween.pause(0);
+          smoke2Tween.pause(0);
         },
         onReverseComplete() {
           iceTween.reverse();
+          smoke1Tween.play();
+          smoke2Tween.play();
         },
       });
 
@@ -209,7 +223,7 @@ const PepsiLandingPage = () => {
             ref={smoke1Ref}
             width={560}
             height={750}
-            className="absolute z-10  -translate-x-1/8 md:-translate-x-1/4"
+            className="absolute z-10  -translate-x-1/8 md:-translate-x-1/4 origin-bottom"
           />
           <Image
             src={Smoke2}
@@ -218,7 +232,7 @@ const PepsiLandingPage = () => {
             ref={smoke2Ref}
             width={750}
             height={656}
-            className="absolute z-10 translate-x-1/8 md:translate-x-1/4"
+            className="absolute z-10 translate-x-1/8 md:translate-x-1/4 origin-bottom"
           />
           <Image
             src={Pepsi6}
