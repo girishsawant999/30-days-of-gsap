@@ -90,6 +90,33 @@ const PepsiLandingPage = () => {
       const pbpRect = pepsiBlackPlaceholder.getBoundingClientRect();
       const pbcRect = pepsiBlackContainer.getBoundingClientRect();
 
+      const pepsiBlueCanAnimProps = {
+        products: {
+          rotate: 360,
+          x: ppRect.left,
+          y: ppRect.top,
+          height: ppRect.height,
+          width: ppRect.width,
+        },
+        buyNow: {
+          rotate: 0,
+          x: bppRect.left,
+          y: bppRect.top,
+          height: bppRect.height,
+          width: bppRect.width,
+        },
+      };
+
+      const pepsiBlackAnimProps = {
+        buyNow: {
+          x: pbpRect.left - pbcRect.left,
+          y: pbpRect.top - pbcRect.top,
+          height: pbpRect.height,
+          width: pbpRect.width,
+          rotate: 360,
+        },
+      };
+
       const smoke1Tween = gsap.fromTo(
         smoke1,
         {
@@ -154,13 +181,7 @@ const PepsiLandingPage = () => {
         },
       });
 
-      pptl.to(canContainer, {
-        scale: 1,
-        rotate: 360,
-        width: productPlaceholder.clientWidth,
-        x: ppRect.left,
-        y: ppRect.top,
-      });
+      pptl.to(canContainer, pepsiBlueCanAnimProps.products);
 
       // Buy now page
       const bptl = gsap.timeline({
@@ -172,13 +193,7 @@ const PepsiLandingPage = () => {
         },
       });
 
-      bptl.to(canContainer, {
-        scale: 1,
-        rotate: 0,
-        width: bppRect.width,
-        x: bppRect.x,
-        y: bppRect.y,
-      });
+      bptl.to(canContainer, pepsiBlueCanAnimProps.buyNow);
 
       // Buy  now 2 page
       const bp2tl = gsap.timeline({
@@ -187,16 +202,10 @@ const PepsiLandingPage = () => {
           start: "clamp(top 30%)",
           end: "clamp(bottom top)",
           scrub: true,
-          markers: true,
         },
       });
 
-      bp2tl.to(pepsiBlackContainer, {
-        rotate: 360,
-        x: pbpRect.x - pbcRect.x,
-        y: pbpRect.y - pbcRect.y + (pbpRect.height - pbcRect.height) / 2,
-        width: pbpRect.width,
-      });
+      bp2tl.to(pepsiBlackContainer, pepsiBlackAnimProps.buyNow);
     });
 
     window.addEventListener("resize", refreshScrollTrigger);
@@ -213,7 +222,7 @@ const PepsiLandingPage = () => {
       <div
         id="pepsi-can-container"
         ref={canContainerRef}
-        className="absolute opacity-0 pointer-events-none z-40 origin-center"
+        className="absolute opacity-0 pointer-events-none z-40 origin-center "
       >
         <div className="relative grid place-items-center isolate">
           <Image
@@ -362,35 +371,39 @@ const PepsiLandingPage = () => {
       <section
         id="products"
         ref={productsSectionRef}
-        className=" grid relative"
+        className="grid relative min-h-screen"
       >
-        <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-5 py-10 place-items-stretch mx-auto max-w-[min(90vw,1200px)]">
-          <div className="aspect-[440/520] grid place-items-center">
+        <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-5 py-10  place-items-stretch mx-auto max-w-[min(90vw,1200px)]">
+          <div className="aspect-[440/520] grid place-items-center h-[320px] md:h-[520px]">
             <Image src={Pepsi1} alt="Pepsi Can" width={440} height={520} />
           </div>
-          <div className="aspect-[440/520] grid place-items-center">
+          <div className="aspect-[440/520] grid place-items-center h-[320px] md:h-[520px]">
             <Image src={Pepsi2} alt="Pepsi Can" width={440} height={520} />
           </div>
-          <div className="aspect-[440/520] grid place-items-center">
+          <div className="aspect-[440/520] grid place-items-center h-[320px] md:h-[520px]">
             <Image src={Pepsi3} alt="Pepsi Can" width={440} height={520} />
           </div>
-          <div className="aspect-[440/520] grid place-items-center">
+          <div className="aspect-[440/520] grid place-items-center h-[320px] md:h-[520px]">
             <Image src={Pepsi4} alt="Pepsi Can" width={440} height={520} />
           </div>
-          <div className="aspect-[440/520] grid place-items-center">
+          <div className="aspect-[440/520] grid place-items-center h-[320px] md:h-[520px]">
             <Image src={Pepsi5} alt="Pepsi Can" width={440} height={520} />
           </div>
           <div
             id="product-placeholder"
-            ref={productPlaceholderRef}
-            className="aspect-[440/520]  grid place-items-center"
-          ></div>
-          <div className="aspect-[440/520] grid place-items-center">
+            className="aspect-[440/520] h-[320px] md:h-[520px]  grid place-items-center"
+          >
+            <div
+              ref={productPlaceholderRef}
+              className="aspect-[440/520] w-full"
+            ></div>
+          </div>
+          <div className="aspect-[440/520] grid place-items-center h-[320px] md:h-[520px]">
             <Image src={Pepsi7} alt="Pepsi Can" width={440} height={520} />
           </div>
           <div
             ref={pepsiBlackContainerRef}
-            className="aspect-[440/520] grid place-items-center z-30"
+            className="aspect-[440/520] grid place-items-center h-[320px] md:h-[520px] z-30"
           >
             <Image src={Pepsi8} alt="Pepsi Can" width={440} height={520} />
           </div>
@@ -483,7 +496,7 @@ const PepsiLandingPage = () => {
           <div
             id="buy-product-placeholder"
             ref={buyProductPlaceholderRef}
-            className="aspect-[440/520] flex-1 mb-5 md:mb-0"
+            className="aspect-[440/520] h-[320px] md:h-[520px] flex-1 mb-5 md:mb-0"
           ></div>
         </div>
       </section>
@@ -573,7 +586,7 @@ const PepsiLandingPage = () => {
 
           <div
             ref={pepsiBlackPlaceholderRef}
-            className="aspect-[440/520] flex-1 mb-5 md:mb-0"
+            className="aspect-[440/520] h-[320px] md:h-[520px] flex-1 mb-5 md:mb-0"
           ></div>
         </div>
       </section>
