@@ -296,7 +296,7 @@ const PepsiLandingPage = () => {
       <section
         id="intro"
         ref={introSectionRef}
-        className="mx-auto max-w-[min(90vw,1200px)] grid min-h-[calc(100dvh_-_108px)] relative mb-36"
+        className="mx-auto max-w-[min(90vw,1200px)] grid min-h-[calc(100vh_-_108px)] relative mb-36"
       >
         <div className="flex items-center md:items-start md:justify-center gap-5 flex-col z-50 mt-10 md:mt-0">
           <h1 className="text-6xl md:text-8xl text-center md:text-start text-white font-bold font-sans">
