@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Home() {
   const days = 30;
-  const activeDays = 8;
+  const activeDays = 9;
 
   return (
     <div className="grid max-w-5xl px-10 mx-auto py-10 gap-4 grid-cols-[repeat(auto-fit,minmax(200px,1fr)))] ">
