@@ -41,7 +41,36 @@ const ObserverTutorial = () => {
   const carousel = useRef<HTMLDivElement>(null);
   const animating = useRef(false);
 
-  const { contextSafe } = useGSAP({ scope: container });
+  const { contextSafe } = useGSAP(
+    () => {
+      const tl = gsap.timeline();
+
+      tl.fromTo(
+        "header",
+        {
+          y: -100,
+          opacity: 0,
+          duration: 0.5,
+        },
+        {
+          y: 0,
+          opacity: 1,
+          ease: "power2.out",
+        }
+      );
+      tl.fromTo(
+        ".content",
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          ease: "power2.out",
+        },
+        "-=0.2"
+      );
+    },
+    { scope: container }
+  );
 
   const slide = (direction: -1 | 1) => {
     if (animating.current) return;
@@ -93,7 +122,7 @@ const ObserverTutorial = () => {
       className="bg-background flex flex-col relative h-lvh overflow-hidden text-[#243734] dark:text-[#7CA38E] cursor-ns-resize "
     >
       <div className="grid-cols-6 w-full max-w-[min(1400px,92vw)] mx-auto gap-5">
-        <header className="col-span-6 flex items-center gap-5 justify-between mt-4 md:mt-10 font-sans w-full">
+        <header className="header col-span-6 flex items-center gap-5 justify-between mt-4 md:mt-10 font-sans w-full">
           <div className="flex items-center gap-10">
             <svg
               width="100"
@@ -123,7 +152,7 @@ const ObserverTutorial = () => {
               </a>
             </nav>
           </div>
-          <div className="flex justify-end gap-5 items-center">
+          <div className=" flex justify-end gap-5 items-center">
             <input
               className="border-current border-2 hidden md:block text-current bg-transparent placeholder:text-current/80 px-3 py-1.5 md:px-4 md:py-3.5 outline-current"
               type="text"
@@ -140,7 +169,7 @@ const ObserverTutorial = () => {
           </div>
         </header>
 
-        <div className="min-h-1/3 flex flex-col gap-4 py-20 justify-center items-center w-full">
+        <div className="content min-h-1/3 flex flex-col gap-4 py-20 justify-center items-center w-full">
           <h1 className="text-center text-4xl  md:text-[50px] font-semibold font-sans">
             Indoor plants made easy
           </h1>
