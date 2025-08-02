@@ -40,6 +40,23 @@ const MotionPathTutorial = () => {
       duration: 0.8,
     });
 
+    gsap.fromTo(
+      ".card",
+      {
+        autoAlpha: 0,
+        y: 100,
+      },
+      {
+        autoAlpha: 1,
+        y: 0,
+        ease: "power2.out",
+        stagger: {
+          amount: 0.2,
+        },
+        duration: 0.3,
+      }
+    );
+
     timeline.current = gsap.timeline({
       defaults: {
         duration: 10,
@@ -157,7 +174,7 @@ const MotionPathTutorial = () => {
           Ongoing Delivery
         </h2>
         <div className="flex flex-col justify-center gap-6">
-          <div className="p-5 border-2 border-[#5932EA] rounded-xl bg-white flex flex-col gap-6">
+          <div className="p-5 border-2 card invisible border-[#5932EA] rounded-xl bg-white flex flex-col gap-6">
             <div className="flex  justify-between gap-5">
               <div className="flex flex-col gap-1">
                 <p className=" text-lg font-bold text-left text-[#232323]">
@@ -263,7 +280,7 @@ const MotionPathTutorial = () => {
             </div>
           </div>
 
-          <div className="p-5 border-2 border-[#fff] rounded-xl bg-white flex flex-col gap-6">
+          <div className="p-5 border-2 card invisible border-[#fff] rounded-xl bg-white flex flex-col gap-6">
             <div className="flex  justify-between gap-5">
               <div className="flex flex-col gap-1">
                 <p className=" text-lg font-bold text-left text-[#232323]">
