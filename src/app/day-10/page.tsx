@@ -1,8 +1,8 @@
 "use client";
+import ReloadButton from "@/components/ReloadButton";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import DrawSVGPlugin from "gsap/DrawSVGPlugin";
-import { GSDevTools } from "gsap/GSDevTools";
 import MotionPathPlugin from "gsap/MotionPathPlugin";
 import {
   CalendarDaysIcon,
@@ -24,32 +24,33 @@ import { useRef } from "react";
 import MapImage from "./assets/map.png";
 import TruckImage from "./assets/truck.png";
 
-gsap.registerPlugin(GSDevTools, DrawSVGPlugin, MotionPathPlugin);
+gsap.registerPlugin(DrawSVGPlugin, MotionPathPlugin);
 
 const MotionPathTutorial = () => {
   const track = useRef<SVGPathElement>(null);
+  const timeline = useRef<ReturnType<typeof gsap.timeline>>(null);
 
   useGSAP(() => {
     if (!track.current) return;
 
     gsap.to(".blink", {
-      opacity: 0,
+      opacity: 0.5,
       repeat: -1,
       yoyo: true,
-      duration: 0.5,
-      ease: "power2.in",
+      duration: 0.8,
     });
 
-    const tl = gsap.timeline({
+    timeline.current = gsap.timeline({
       defaults: {
         duration: 10,
         ease: "power2.out",
       },
     });
 
-    tl.from(track.current, {
-      drawSVG: 0,
-    })
+    timeline.current
+      .from(track.current, {
+        drawSVG: 0,
+      })
       .to(
         ".plane",
         {
@@ -71,16 +72,11 @@ const MotionPathTutorial = () => {
         },
         6
       );
-
-    GSDevTools.create({
-      animation: tl,
-      container: ".map",
-    });
   });
 
   return (
-    <section className="h-screen overflow-hidden bg-background text-foreground grid place-items-stretch grid-cols-[105px_auto_1fr] font-sans relative">
-      <div className="z-10 sidebar bg-white border-t-0 border-r border-b-0 border-l-0 border-[#e8e8e8] flex flex-col gap-4 shadow-[0px_20px_50px_0_rgba(220,224,249,0.5)] p-[22px]">
+    <section className="min-h-screen  bg-background text-foreground grid place-items-stretch   md:grid-cols-[105px_auto_1fr] font-sans relative">
+      <div className="z-10 sidebar bg-white border-t-0 border-r border-b-0 border-l-0 border-[#e8e8e8] flex flex-row md:flex-col gap-4 shadow-[0px_20px_50px_0_rgba(220,224,249,0.5)] p-4 md:p-[22px]">
         <Link href="/">
           <svg
             width="61"
@@ -88,6 +84,7 @@ const MotionPathTutorial = () => {
             viewBox="0 0 61 67"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            className="size-12 md:size-16"
           >
             <path
               d="M46.7362 14.9892L31.9779 23.5375C31.3837 23.8825 30.6362 23.8825 30.0229 23.5375L15.2646 14.9892C14.2104 14.3759 13.9421 12.9384 14.7471 12.0375C15.3029 11.405 15.9354 10.8875 16.6062 10.5234L26.9946 4.77336C29.2179 3.52753 32.8212 3.52753 35.0446 4.77336L45.4329 10.5234C46.1037 10.8875 46.7362 11.4242 47.2921 12.0375C48.0587 12.9384 47.7904 14.3759 46.7362 14.9892Z"
@@ -108,7 +105,7 @@ const MotionPathTutorial = () => {
           </svg>
         </Link>
 
-        <div className="flex flex-col justify-center gap-4 mt-10 text-gray-700">
+        <div className="flex-col justify-center gap-4 mt-10 text-gray-700 hidden md:flex">
           <div className=" size-14  grid place-items-center">
             <LayoutPanelLeft size={24} />
           </div>
@@ -135,13 +132,13 @@ const MotionPathTutorial = () => {
           </div>
         </div>
 
-        <div className="mt-auto">
-          <div className="rounded-full bg-[#5932ea] grid place-items-center size-14">
+        <div className="ms-auto md:mt-auto">
+          <div className="rounded-full bg-[#5932ea] grid place-items-center size-12 md:size-14">
             <span className="text-white font-semibold text-lg">GS</span>
           </div>
         </div>
       </div>
-      <div className="z-10 content flex flex-col gap-7 p-10 bg-[#f6f6f4] backdrop-blur-xs">
+      <div className="z-10 content flex flex-col gap-7 p-10 bg-[#f6f6f4] backdrop-blur-xs min-h-screen">
         <div className="relative bg-white border-[#ECEEF6] border rounded-md text-[#c6c6c6] p-1">
           <Search
             size={12}
@@ -373,7 +370,10 @@ const MotionPathTutorial = () => {
           </div>
         </div>
       </div>
-      <div className="map grid place-items-center relative">
+      <div className="map grid place-items-center relative min-h-screen">
+        <div className="absolute right-10 top-10 z-50">
+          <ReloadButton onReload={() => timeline.current?.restart()} />
+        </div>
         <Image
           alt="Map Image"
           src={MapImage}
@@ -401,14 +401,21 @@ const MotionPathTutorial = () => {
             strokeWidth={13}
             strokeOpacity={0.5}
           />
-          <circle cx={243} cy={192} r={12} fill="#32EA57" fillOpacity="0.2" />
-          <circle cx={243} cy={192} r={7} fill="#32EA57" className="blink" />
+          <circle
+            cx={243}
+            cy={192}
+            r={12}
+            fill="#32EA57"
+            fillOpacity="0.2"
+            className="blink"
+          />
+          <circle cx={243} cy={192} r={7} fill="#32EA57" />
 
           <path
             d="M268 192C268 205.807 256.807 217 243 217C229.193 217 218 205.807 218 192C218 178.193 229.193 167 243 167C256.807 167 268 178.193 268 192Z"
             fill="#5932EA"
             fillOpacity="0.3"
-            className="plane"
+            className="plane blink"
           />
           <path
             d="M260 192C260 201.389 252.389 209 243 209C233.611 209 226 201.389 226 192C226 182.611 233.611 175 243 175C252.389 175 260 182.611 260 192Z"
@@ -425,6 +432,7 @@ const MotionPathTutorial = () => {
             d="M557 513C557 524.046 548.046 533 537 533C525.954 533 517 524.046 517 513C517 501.954 525.954 493 537 493C548.046 493 557 501.954 557 513Z"
             fill="#5932EA"
             fillOpacity="0.3"
+            className="blink"
           />
           <path
             d="M549.941 513C549.941 520.147 544.147 525.941 537 525.941C529.853 525.941 524.059 520.147 524.059 513C524.059 505.853 529.853 500.059 537 500.059C544.147 500.059 549.941 505.853 549.941 513Z"
@@ -435,7 +443,6 @@ const MotionPathTutorial = () => {
             clipRule="evenodd"
             d="M536.807 503.792C538.705 503.792 540.658 504.361 542.14 505.43C543.626 506.5 544 508.08 544 510.085C544 511.101 543.718 512.348 543 513.751C542.278 515.162 541.748 516.76 540.791 518.147C539.832 519.536 538.874 520.803 538.156 521.722C537.797 522.182 537.498 522.556 537.288 522.814C537.183 522.943 537.101 523.044 537.044 523.112C537.016 523.146 536.995 523.172 536.98 523.19C536.973 523.199 536.967 523.205 536.963 523.21C536.961 523.212 536.959 523.215 536.959 523.215L536.958 523.216L536.804 523.401L536.654 523.213L536.652 523.211C536.652 523.211 536.65 523.208 536.648 523.206C536.645 523.202 536.639 523.195 536.632 523.186C536.618 523.168 536.597 523.141 536.57 523.106C536.515 523.037 536.434 522.934 536.332 522.803C536.128 522.539 535.835 522.159 535.484 521.691C534.781 520.756 533.842 519.47 532.897 518.069C531.951 516.669 531.231 515.4 530.5 514C529.774 512.608 529.552 511.046 529.5 510.085C529.5 508.053 529.993 506.523 531.5 505.43C533.005 504.337 534.906 503.792 536.807 503.792ZM536.604 508.053C535.305 508.053 534.253 509.145 534.253 510.492C534.253 511.838 535.305 512.93 536.604 512.93C537.903 512.93 538.956 511.838 538.956 510.492C538.956 509.145 537.903 508.053 536.604 508.053Z"
             fill="#5932EA"
-            className="blink"
           />
         </svg>
       </div>
