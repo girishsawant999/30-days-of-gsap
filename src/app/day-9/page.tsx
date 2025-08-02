@@ -3,6 +3,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Observer from "gsap/dist/Observer";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 import Image7 from "./assets/Frame 10.png";
 import Image8 from "./assets/Frame 11.png";
@@ -124,22 +125,24 @@ const ObserverTutorial = () => {
       <div className="grid-cols-6 w-full max-w-[min(1400px,92vw)] mx-auto gap-5">
         <header className="header col-span-6 flex items-center gap-5 justify-between mt-4 md:mt-10 font-sans w-full">
           <div className="flex items-center gap-10">
-            <svg
-              width="100"
-              height="100"
-              viewBox="0 0 100 100"
-              fill="none"
-              className="size-14 md:size-[100px]"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M63.1729 22.6646C41.5917 38.0688 47.8667 65.2605 47.8667 65.2605L52.5479 56.3959L63.1729 22.6646ZM63.1729 22.6646C72.0167 47.6605 51.2833 66.3355 51.2833 66.3355L52.5333 56.3896L63.1729 22.6646ZM25.4583 27.5105C36.6125 28.2396 45.9083 39.5959 45.9083 39.5959C43.124 46.1507 42.3608 53.3878 43.7167 60.3792C33.3833 51.3313 23.8 41.948 25.4562 27.5105H25.4583ZM6.14166 62.3292C18.8723 70.6718 33.4279 75.8196 48.5729 77.3355C40.9937 59.7917 27.525 53.5021 6.14166 62.3292V62.3292ZM51.5604 77.2396C74.5292 76.0751 93.8354 62.6313 93.8583 62.5001C74.3167 54.073 60.1229 58.7521 51.5604 77.2396Z"
-                stroke="currentColor"
-                strokeWidth="2.08333"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <Link href="/">
+              <svg
+                width="100"
+                height="100"
+                viewBox="0 0 100 100"
+                fill="none"
+                className="size-14 md:size-[100px]"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M63.1729 22.6646C41.5917 38.0688 47.8667 65.2605 47.8667 65.2605L52.5479 56.3959L63.1729 22.6646ZM63.1729 22.6646C72.0167 47.6605 51.2833 66.3355 51.2833 66.3355L52.5333 56.3896L63.1729 22.6646ZM25.4583 27.5105C36.6125 28.2396 45.9083 39.5959 45.9083 39.5959C43.124 46.1507 42.3608 53.3878 43.7167 60.3792C33.3833 51.3313 23.8 41.948 25.4562 27.5105H25.4583ZM6.14166 62.3292C18.8723 70.6718 33.4279 75.8196 48.5729 77.3355C40.9937 59.7917 27.525 53.5021 6.14166 62.3292V62.3292ZM51.5604 77.2396C74.5292 76.0751 93.8354 62.6313 93.8583 62.5001C74.3167 54.073 60.1229 58.7521 51.5604 77.2396Z"
+                  stroke="currentColor"
+                  strokeWidth="2.08333"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Link>
             <nav className="items-center gap-5 hidden md:flex">
               <a href="#plants" className="text-xl text-current font-medium">
                 Plants
