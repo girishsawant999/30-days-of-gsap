@@ -392,7 +392,7 @@ const MotionPathTutorial = () => {
           </div>
         </div>
       </div>
-      <div className="map grid relative min-h-screen">
+      <div className="map grid place-items-center relative h-screen overflow-hidden">
         <div className="absolute right-5 md:right-10 top-5 md:top-10 z-50">
           <ReloadButton onReload={() => timeline.current?.restart()} />
         </div>
@@ -406,7 +406,7 @@ const MotionPathTutorial = () => {
           viewBox="0 0 702 994"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="object-cover object-center col-start-1 col-span-1 row-start-1 row-span-1 z-10"
+          className="object-cover object-center col-start-1 col-span-1 row-start-1 row-span-1 z-10 mt-16"
           preserveAspectRatio="none"
         >
           <path
