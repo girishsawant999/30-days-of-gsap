@@ -105,10 +105,10 @@ const ObserverTutorial = () => {
         slide(-1);
       },
       onLeft: () => {
-        slide(1);
+        slide(-1);
       },
       onRight: () => {
-        slide(-1);
+        slide(1);
       },
     });
 
