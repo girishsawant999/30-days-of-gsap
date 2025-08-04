@@ -1,5 +1,6 @@
 "use client";
 import BackButton from "@/components/BackButton";
+import ReloadButton from "@/components/ReloadButton";
 import { MODELS_IMAGES } from "@/constants/Models";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -7,13 +8,13 @@ import { Flip } from "gsap/Flip";
 import SplitText from "gsap/SplitText";
 import TextPlugin from "gsap/TextPlugin";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 gsap.registerPlugin(Flip, TextPlugin, SplitText);
 
 const TextReplaceTutorial = () => {
   const container = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState(0);
+  const timeline = useRef<gsap.core.Timeline>(null);
 
   useGSAP(
     () => {
@@ -36,7 +37,7 @@ const TextReplaceTutorial = () => {
         wordsClass: "word",
       });
 
-      const tl = gsap.timeline({
+      timeline.current = gsap.timeline({
         // scrollTrigger: {
         //   trigger: container.current,
         //   scrub: true,
@@ -46,6 +47,8 @@ const TextReplaceTutorial = () => {
         //   pin: true,
         // },
       });
+
+      const tl = timeline.current;
       tl.to("#image-container img", {
         scale: 1,
         borderBottomLeftRadius: 20,
@@ -108,6 +111,7 @@ const TextReplaceTutorial = () => {
     >
       <div className="fixed flex items-center gap-3 top-5 md:top-10 left-5 md:left-10 z-10">
         <BackButton />
+        <ReloadButton onReload={() => timeline.current?.restart()} />
       </div>
       <div
         id="image-container"
