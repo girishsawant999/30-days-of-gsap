@@ -160,7 +160,7 @@ const MotionPathTutorial = () => {
           </div>
         </div>
       </div>
-      <div className="z-10 content flex flex-col gap-7 p-10 bg-[#f6f6f4] backdrop-blur-xs min-h-screen">
+      <div className="z-10 content flex flex-col gap-7 p-5 md:p-10 bg-[#f6f6f4] backdrop-blur-xs min-h-screen">
         <div className="relative bg-white border-[#ECEEF6] border rounded-md text-[#c6c6c6] p-1">
           <Search
             size={12}
@@ -392,23 +392,21 @@ const MotionPathTutorial = () => {
           </div>
         </div>
       </div>
-      <div className="map grid place-items-center relative min-h-screen">
-        <div className="absolute right-10 top-10 z-50">
+      <div className="map grid relative min-h-screen">
+        <div className="absolute right-5 md:right-10 top-5 md:top-10 z-50">
           <ReloadButton onReload={() => timeline.current?.restart()} />
         </div>
         <Image
           alt="Map Image"
           src={MapImage}
           fill
-          className="object-cover object-center"
+          className="object-cover object-center col-start-1 col-span-1 row-start-1 row-span-1"
         />
         <svg
-          width={702}
-          height={994}
           viewBox="0 0 702 994"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="object-cover object-center absolute"
+          className="object-cover object-center col-start-1 col-span-1 row-start-1 row-span-1 z-10"
           preserveAspectRatio="none"
         >
           <path
