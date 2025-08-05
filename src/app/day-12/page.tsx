@@ -43,7 +43,7 @@ const VignetteAnimation = () => {
               className="object-cover object-center w-full"
             />
           </div>
-          <div className="thumbnail w-[40vw] md:w-[22vw] invisible aspect-square fixed top-0 rounded-xl overflow-hidden">
+          <div className="thumbnail w-[40vw] md:w-[22vw] invisible aspect-square fixed top-0 rounded-xl overflow-hidden [clip-path:_polygon(50%_0%,_83%_12%,_100%_43%,_94%_78%,_68%_100%,_32%_100%,_6%_78%,_0%_43%,_17%_12%)]">
             <Image
               src={thumbnail}
               fill

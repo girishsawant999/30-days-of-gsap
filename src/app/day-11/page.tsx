@@ -2,6 +2,7 @@
 import BackButton from "@/components/BackButton";
 import { MODELS_IMAGES } from "@/constants/Models";
 import { useGSAP } from "@gsap/react";
+import clsx from "clsx";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
@@ -137,7 +138,14 @@ const ScrollZoomEffect = () => {
             data-img-container={index}
             className="absolute grid place-items-center"
           >
-            <div style={style} className="relative overflow-hidden">
+            <div
+              style={style}
+              className={clsx(
+                "relative overflow-hidden ",
+                index !== 0 &&
+                  "[clip-path:_polygon(5%_5%,_0_100%,_95%_95%,_100%_0)]"
+              )}
+            >
               <Image
                 src={src}
                 alt={`Model ${index + 1}`}
