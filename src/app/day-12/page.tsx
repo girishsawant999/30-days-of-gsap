@@ -47,6 +47,7 @@ const VignetteAnimation = () => {
             <Image
               src={thumbnail}
               fill
+              priority
               alt={`Landscape ${index + 1}`}
               className="object-cover object-center w-full"
             />
