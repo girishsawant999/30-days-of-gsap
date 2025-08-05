@@ -203,7 +203,7 @@ const FlipTutorial = () => {
 
       <div className="min-h-dvh w-full grid place-items-center ">
         <div className="grid grid-cols-9 grid-rows-9 gap-1 md:gap-4 max-w-2xl w-full aspect-square bg-white border-4 md:border-[16px] border-white">
-          {MODELS_IMAGES.map((url, index) => {
+          {MODELS_IMAGES.slice(0, 6).map((url, index) => {
             return (
               <figure
                 key={index}
