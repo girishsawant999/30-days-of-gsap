@@ -1,5 +1,6 @@
 "use client";
 import BackButton from "@/components/BackButton";
+import ScrollToExplore from "@/components/ScrollToExplore";
 import { LANDSCAPES_IMAGES } from "@/constants/Landscapes";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -37,6 +38,7 @@ const VignetteAnimation = () => {
       <div className="fixed flex items-center gap-3 top-5 md:top-10 left-5 md:left-10 z-10">
         <BackButton />
       </div>
+      <ScrollToExplore />
       {LANDSCAPES_IMAGES.map(({ src, thumbnail }, index) => (
         <div
           key={index}
