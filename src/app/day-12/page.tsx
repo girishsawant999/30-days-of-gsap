@@ -1,20 +1,27 @@
 "use client";
 import BackButton from "@/components/BackButton";
 import { LANDSCAPES_IMAGES } from "@/constants/Landscapes";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
-import { useEffect } from "react";
 
 const VignetteAnimation = () => {
-  useEffect(() => {
+  useGSAP(() => {
+    const thumbnail = document.querySelectorAll(".thumbnail");
+    if (!thumbnail[0]) return;
+
+    gsap.set(".thumbnail", {
+      autoAlpha: 1,
+      x: window.innerWidth / 2 - thumbnail[0].clientWidth / 2,
+      y: window.innerHeight / 2 - thumbnail[0].clientHeight / 2,
+    });
+
     const onMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
-      const thumbnail = document.querySelectorAll(".thumbnail");
-      if (!thumbnail[0]) return;
+
       gsap.to(thumbnail, {
         x: clientX - thumbnail[0].clientWidth / 2,
         y: clientY - thumbnail[0].clientHeight / 2,
-        autoAlpha: 1,
         ease: "power2.out",
       });
     };
@@ -23,7 +30,7 @@ const VignetteAnimation = () => {
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
     };
-  }, []);
+  });
 
   return (
     <section className="bg-background text-foreground cursor-none">
