@@ -2,18 +2,52 @@
 import { MODELS_IMAGES } from "@/constants/Models";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
+import { Observer } from "gsap/Observer";
 import { Menu } from "lucide-react";
 import Image from "next/image";
 import { useRef } from "react";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(Observer);
 
 const TimelineWithCarousel = () => {
   const container = useRef(null);
 
   useGSAP(() => {
-    const tl = gsap.timeline({});
+    const items: HTMLElement[] = gsap.utils.toArray(".img-container");
+    const itemWidth = items[0].offsetWidth;
+
+    const wrapX = gsap.utils.wrap(
+      -itemWidth,
+      Math.ceil(items.length / 2) * itemWidth
+    );
+
+    const scrollCarousel = (dir: 1 | -1) => {
+      items.forEach((item) => {
+        gsap.to(item, {
+          duration: 0.5,
+          x: `+=${dir * itemWidth}`,
+          modifiers: {
+            x: (x) => wrapX(parseFloat(x)) + "px",
+          },
+          ease: "power2.out",
+        });
+      });
+    };
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        Observer.create({
+          target: container.current,
+          type: "wheel,touch,pointer",
+          onDown: () => {
+            scrollCarousel(1);
+          },
+          onUp: () => {
+            scrollCarousel(-1);
+          },
+        });
+      },
+    });
 
     tl.fromTo(
       ".img-container",
@@ -72,14 +106,14 @@ const TimelineWithCarousel = () => {
           .slice(1)
           .map((model, index) => (
             <div
-              className="shrink-0 relative w-3/6 md:w-2/12 aspect-[2/3] opacity-0 img-container"
+              className="shrink-0 group relative w-3/6 md:w-2/12 aspect-[2/3] opacity-0 img-container overflow-hidden cursor-pointer"
               key={index}
             >
               <Image
                 src={model}
                 alt={`Model ${index + 1}`}
                 fill
-                className="object-cover"
+                className="object-cover group-hover:scale-110 transition-transform ease-in"
               />
             </div>
           ))}
