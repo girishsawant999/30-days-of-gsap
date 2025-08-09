@@ -40,10 +40,16 @@ const TimelineWithCarousel = () => {
           target: container.current,
           type: "wheel,touch,pointer",
           onDown: () => {
-            scrollCarousel(1);
+            scrollCarousel(-1);
           },
           onUp: () => {
+            scrollCarousel(1);
+          },
+          onLeft: () => {
             scrollCarousel(-1);
+          },
+          onRight: () => {
+            scrollCarousel(1);
           },
         });
       },
@@ -89,7 +95,7 @@ const TimelineWithCarousel = () => {
   return (
     <section
       ref={container}
-      className="bg-[#632222] text-foreground overflow-hidden h-dvh main-container"
+      className="bg-[#632222] text-foreground overflow-hidden h-screen main-container"
     >
       <div className="px-4 py-5 flex items-center gap-1.5 text-gray-800">
         <Menu />
