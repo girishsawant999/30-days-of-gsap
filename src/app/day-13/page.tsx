@@ -1,5 +1,6 @@
 "use client";
 import { MODELS_IMAGES } from "@/constants/Models";
+import useMediaLoaded from "@/hooks/useMediaLoaded";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Observer } from "gsap/Observer";
@@ -11,94 +12,102 @@ gsap.registerPlugin(Observer);
 
 const TimelineWithCarousel = () => {
   const container = useRef(null);
+  const isMediaLoaded = useMediaLoaded();
 
-  useGSAP(() => {
-    const items: HTMLElement[] = gsap.utils.toArray(".img-container");
-    const itemWidth = items[0].offsetWidth;
+  useGSAP(
+    () => {
+      if (!isMediaLoaded) return;
 
-    const wrapX = gsap.utils.wrap(
-      -itemWidth,
-      Math.ceil(items.length / 2) * itemWidth
-    );
+      const items: HTMLElement[] = gsap.utils.toArray(".img-container");
+      const itemWidth = items[0].offsetWidth;
 
-    const scrollCarousel = (dir: 1 | -1) => {
-      items.forEach((item) => {
-        gsap.to(item, {
-          duration: 0.5,
-          x: `+=${dir * itemWidth}`,
-          modifiers: {
-            x: (x) => wrapX(parseFloat(x)) + "px",
-          },
-          ease: "power2.out",
+      const wrapX = gsap.utils.wrap(
+        -itemWidth,
+        Math.ceil(items.length / 2) * itemWidth
+      );
+
+      const scrollCarousel = (dir: 1 | -1) => {
+        items.forEach((item) => {
+          gsap.to(item, {
+            duration: 0.5,
+            x: `+=${dir * itemWidth}`,
+            modifiers: {
+              x: (x) => wrapX(parseFloat(x)) + "px",
+            },
+            ease: "power2.out",
+          });
         });
+      };
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          Observer.create({
+            target: container.current,
+            type: "wheel,touch,pointer",
+            onDown: () => {
+              scrollCarousel(-1);
+            },
+            onUp: () => {
+              scrollCarousel(1);
+            },
+            onLeft: () => {
+              scrollCarousel(-1);
+            },
+            onRight: () => {
+              scrollCarousel(1);
+            },
+          });
+        },
       });
-    };
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        Observer.create({
-          target: container.current,
-          type: "wheel,touch,pointer",
-          onDown: () => {
-            scrollCarousel(-1);
-          },
-          onUp: () => {
-            scrollCarousel(1);
-          },
-          onLeft: () => {
-            scrollCarousel(-1);
-          },
-          onRight: () => {
-            scrollCarousel(1);
-          },
-        });
-      },
-    });
-
-    tl.fromTo(
-      ".img-container",
-      {
-        opacity: 0,
-        x: (idx, curr, total) => {
-          const l = total.length;
-          const multiplier = idx === l / 2 ? 0 : idx < l / 2 ? -1 : 1;
-          const baseDistance = window.innerWidth;
-          const extraDistance = Math.abs(idx - l / 2) * baseDistance;
-          return multiplier * (baseDistance + extraDistance);
-        },
-      },
-      {
-        opacity: 1,
-        x: 0,
-        duration: (idx, curr, total) => 0.05 * total.length,
-        ease: "power2.out",
-        stagger: {
-          amount: 0.4,
-          from: "center",
-        },
-      },
-      "<"
-    );
-
-    tl.to(".wrapper", {
-      y: 0,
-      scale: 1,
-    })
-      .to(
-        ".main-container",
+      tl.fromTo(
+        ".img-container",
         {
-          backgroundColor: "#fff",
+          opacity: 0,
+          x: (idx, curr, total) => {
+            const l = total.length;
+            const multiplier = idx === l / 2 ? 0 : idx < l / 2 ? -1 : 1;
+            const baseDistance = window.innerWidth;
+            const extraDistance = Math.abs(idx - l / 2) * baseDistance;
+            return multiplier * (baseDistance + extraDistance);
+          },
         },
-        "<"
-      )
-      .to(
-        ".text-svg",
         {
-          color: "#000",
+          opacity: 1,
+          x: 0,
+          duration: (idx, curr, total) => 0.05 * total.length,
+          ease: "power2.out",
+          stagger: {
+            amount: 0.4,
+            from: "center",
+          },
         },
         "<"
       );
-  });
+
+      tl.to(".wrapper", {
+        y: 0,
+        scale: 1,
+      })
+        .to(
+          ".main-container",
+          {
+            backgroundColor: "#fff",
+          },
+          "<"
+        )
+        .to(
+          ".text-svg",
+          {
+            color: "#000",
+          },
+          "<"
+        );
+    },
+    {
+      dependencies: [isMediaLoaded],
+    }
+  );
 
   return (
     <section
