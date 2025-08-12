@@ -30,6 +30,11 @@ const CardStacks = () => {
             scale: 1 - (cards.length - index) * 0.02,
           });
         },
+        onEnterBack: () => {
+          gsap.to(card as HTMLElement, {
+            scale: 1,
+          });
+        },
       });
     });
   });
@@ -48,7 +53,7 @@ const CardStacks = () => {
           <div
             className="relative p-5 rounded-lg bg-foreground shadow-lg"
             style={{
-              top: `calc(-10% + ${index * 25}px)`,
+              top: `calc(-5% + ${index * 25}px)`,
             }}
           >
             <div className="overflow-hidden rounded-md">
@@ -57,7 +62,7 @@ const CardStacks = () => {
                 width={800}
                 height={500}
                 alt={`Landscape ${index + 1}`}
-                className="object-cover w-[30vw]"
+                className="object-cover w-[min(80vw,800px)]"
               />
             </div>
           </div>
