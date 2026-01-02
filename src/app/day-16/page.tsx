@@ -98,13 +98,7 @@ const Day16 = () => {
 
     if (!container || !horizontal) return;
 
-    const panels = gsap.utils.toArray<HTMLElement>(horizontal.children);
     const scrollWidth = horizontal.scrollWidth - window.innerWidth;
-
-    // Calculate snap points based on each panel's position
-    const snapPoints = panels.map((panel, i) => {
-      return panel.offsetLeft / scrollWidth;
-    });
 
     gsap.to(horizontal, {
       x: -scrollWidth,
@@ -113,13 +107,13 @@ const Day16 = () => {
         trigger: container,
         start: "top top",
         end: () => `+=${scrollWidth}`,
-        scrub: 0.5,
+        scrub: 0,
         pin: true,
         anticipatePin: 1,
         snap: {
-          snapTo: snapPoints,
+          snapTo: 1 / (QUOTES.length - 1),
           duration: { min: 0.1, max: 0.3 },
-          ease: "power2.out",
+          ease: "power1.inOut",
         },
       },
     });
