@@ -157,52 +157,48 @@ const ObserverTutorial = () => {
           </div>
           <div className=" flex justify-end gap-5 items-center">
             <input
-              className="border-current border-2 hidden md:block text-current bg-transparent placeholder:text-current/80 px-3 py-1.5 md:px-4 md:py-3.5 outline-current"
+              className="border-current border-2 hidden md:block text-current bg-transparent placeholder:text-current/80 px-[1.5vh] py-[1vh] outline-current"
               type="text"
               placeholder="Search"
             />
             <a
               href="#plants"
-              className="text-xl bg-current px-3 py-1.5 md:px-4 md:py-3.5"
+              className="text-[clamp(1rem,2vh,1.25rem)] bg-current px-[1.5vh] py-[1vh]"
             >
-              <span className="text-white dark:text-black text-lg  md:text-xl">
-                Shop Plants
-              </span>
+              <span className="text-white dark:text-black">Shop Plants</span>
             </a>
           </div>
         </header>
 
-        <div className="content min-h-1/3 flex flex-col gap-4 py-20 justify-center items-center w-full">
-          <h1 className="text-center text-4xl  md:text-[50px] font-semibold font-sans">
+        <div className="content min-h-1/3 flex flex-col gap-[1vh] py-[5vh] justify-center items-center w-full">
+          <h1 className="text-center text-[clamp(1.5rem,5vh,50px)] font-semibold font-sans">
             Indoor plants made easy
           </h1>
-          <p className="text-center text-lg  md:text-xl text-current font-sans max-w-lg">
+          <p className="text-center text-[clamp(0.875rem,2vh,1.25rem)] text-current font-sans max-w-lg">
             Patch plants makes it easy for you to find a find a plant that fits
             your home environment
           </p>
           <a
             href="#plants"
-            className="text-xl bg-current px-3 py-1.5 md:px-4 md:py-3.5 mt-4"
+            className="text-[clamp(1rem,2.2vh,1.25rem)] bg-current px-[2vh] py-[1vh] mt-[2vh]"
           >
-            <span className="text-white dark:text-black text-lg  md:text-xl ">
-              Shop Plants
-            </span>
+            <span className="text-white dark:text-black">Shop Plants</span>
           </a>
         </div>
       </div>
 
-      <div className="mt-auto relative overflow-hidden">
+      <div className="flex-1 relative overflow-hidden">
         <div className="bg-background absolute inset-x-0 rounded-[100%] top-0 h-12 md:h-32 z-10 -translate-y-1/2" />
         <div className="bg-background absolute inset-x-0 rounded-[100%] bottom-0 h-12 md:h-32 z-10 translate-y-1/2" />
 
         <div
           ref={carousel}
-          className="flex items-center gap-5 md:gap-10 justify-center"
+          className="flex items-center gap-5 md:gap-10 justify-center h-full"
         >
           {[...plantImages, ...plantImages].map((url, index) => (
             <div
               key={index}
-              className="min-w-[220px] md:min-w-[332px] h-[423px] z-0"
+              className="min-w-[220px] md:min-w-[332px] h-full z-0"
             >
               <Image
                 src={url}
